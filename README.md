@@ -1,2 +1,13 @@
-# ng2-electron-material
-Using Angular2 with Electron & material
+# Welcome to the mAutomation-B wiki!
+
+git clone
+
+git clone https://github.com/jiturddigital2016/mAutomation-B.git
+
+install
+
+npm install
+
+start server
+
+npm start
