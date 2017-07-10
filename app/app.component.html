@@ -1,27 +1,52 @@
-<div class="app-content">
-  <md-card>
-    <button md-button>FLAT</button>
-    <button md-raised-button>RAISED</button>
-  </md-card>
-  <md-card>
-    <button md-icon-button>
-      <md-icon class="md-24">favorite</md-icon>
-    </button>
-    <button md-fab>
-      <md-icon class="md-24">add</md-icon>
-    </button>
-    <button md-mini-fab>
-      <md-icon class="md-24">add</md-icon>
-    </button>
-  </md-card>
-  <md-card>
-    <button md-raised-button color="primary">PRIMARY</button>
-    <button md-raised-button color="accent">ACCENT</button>
-    <button md-raised-button color="warn">WARN</button>
-  </md-card>
-  <md-card>
-    <button md-button disabled>OFF</button>
-    <button md-raised-button disabled>OFF</button>
-    <button md-mini-fab disabled><md-icon>check</md-icon></button>
-  </md-card>
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+  <h1>
+    Welcome to !!
+  </h1>
+  
 </div>
+<h2>Here are some links to help you start: </h2>
+<div class="example-container">
+  <h3>Normal Buttons</h3>
+  <div class="button-row">
+    <button md-button>Flat button</button>
+    <button md-raised-button>Raised button</button>
+    <button md-fab><md-icon>check</md-icon></button>
+    <button md-mini-fab><md-icon>check</md-icon></button>
+  </div>
+
+  <h3>Link Buttons</h3>
+  <div class="example-button-row">
+    <a md-button routerLink=".">Flat button</a>
+    <a md-raised-button routerLink=".">Raised button</a>
+    <a md-fab routerLink="."><md-icon>check</md-icon></a>
+    <a md-mini-fab routerLink="."><md-icon>check</md-icon></a>
+  </div>
+</div>
+<md-button-toggle-group #group="mdButtonToggleGroup">
+  <md-button-toggle value="left">
+    <md-icon>format_align_left</md-icon>
+  </md-button-toggle>
+  <md-button-toggle value="center">
+    <md-icon>format_align_center</md-icon>
+  </md-button-toggle>
+  <md-button-toggle value="right">
+    <md-icon>format_align_right</md-icon>
+  </md-button-toggle>
+  <md-button-toggle value="justify" disabled>
+    <md-icon>format_align_justify</md-icon>
+  </md-button-toggle>
+</md-button-toggle-group>
+<div class="example-selected-value">Selected value: {{group.value}}</div>
+<ul>
+  <li>
+    <h2><a target="_blank" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
+  </li>
+  <li>
+    <h2><a target="_blank" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
+  </li>
+  <li>
+    <h2><a target="_blank" href="http://angularjs.blogspot.ca/">Angular blog</a></h2>
+  </li>
+</ul>
+
