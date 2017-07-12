@@ -1,0 +1,84 @@
+
+/* settings*/
+.setting-tabs-list 
+{
+	margin:30px 0px 0px 0px !important;
+	
+}
+
+
+.clients-tabs-list 
+{
+	margin:10px !important;
+	
+}
+
+.setting-tabs-list a
+{
+	
+	text-decoration:none;
+}
+
+
+.setting-list-subtitle {
+    font-family: Roboto Regular, sans-serif;
+    font-size: 12px;
+    color: #999999;
+	display:block;
+	padding-left:0px;
+}
+
+.setting-tabs-list .mat-tab-body-content
+{
+	overflow:hidden !important;
+}
+
+
+.settings-text-list-head
+{
+	line-height: 19px;
+    letter-spacing: 0px;
+  
+    font-size: 16px;
+    background-color: rgba(0, 0, 0, 0);
+    text-align: left;
+    transform: matrix(1, 0, 0, 1, 320, 128);
+	padding-bottom:0px;
+	padding-top:10px;
+	
+	
+}
+
+
+.material-list-subtitle {
+    font-family: Roboto Regular, sans-serif;
+    font-size: 12px;
+    color: #999999;
+	display:block;
+	padding-left: 40px;
+}
+
+.mat-list-item md-icon
+{
+	padding-right:20px;
+}
+
+
+.setting-icon-text-list .mat-icon
+{
+	color:#333 !important;
+	    padding-top: 38px;
+}
+
+.setting-icon-text-list a
+{
+	text-decoration:none;
+}
+
+.setting-about-us
+{
+	padding:20px;
+}
+
+
+/* settings*/

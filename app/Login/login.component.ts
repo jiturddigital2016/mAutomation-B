@@ -8,6 +8,8 @@ import {Http} from '@angular/http';
 import { Response, Headers} from '@angular/http';
 import 'rxjs/add/operator/map'
 
+import { URLSearchParams } from "@angular/http"
+import { WebServiceComponent } from '../Webservice/app.service';
 
 @Component({
   selector: 'login-page',
@@ -15,4 +17,60 @@ import 'rxjs/add/operator/map'
   templateUrl: './app/login/login.component.html',
   styleUrls: ['./app/login/login.component.css']
 })
-export class LoginComponent {}
+export class LoginComponent implements OnInit{
+	
+username:string;
+password:string;
+
+private url:string='http://192.168.0.62/clara_phonetool/index.php/api/Admin/login';
+
+ constructor(private http: Http, private webservice: WebServiceComponent) {
+ }
+ngOnInit()
+{
+
+}
+
+ngOnInit()
+{
+
+}
+getloginDetails()
+{
+
+let data1 = new URLSearchParams();
+  data1.append('username', this.userName);
+  data1.append('password',this.password);
+let body = data1.toString();
+  this.webservice.getuser(body, this.url).subscribe(data =>{
+
+if(data.json().status == true)
+{
+ 
+ console.log(data.json().message);
+
+}
+else
+{
+  alert(data.json().message)
+}
+  err =>
+  {
+alert("error getting")
+
+  }
+
+});
+
+
+
+
+
+
+
+}
+
+
+
+
+}

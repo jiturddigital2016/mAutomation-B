@@ -4,20 +4,35 @@ import { MaterialModule, MdButtonModule, MdCheckboxModule } from '@angular/mater
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 //import { AppComponent } from './app.component';
+import { HttpModule } from '@angular/http';
+
+
+
+
 import { LoginComponent } from './login/login.component';
+import { RouterModule } from '@angular/router';
+import { DashboardComponent } from './Dashboard/dashboard.component';
+
+import { WebServiceComponent } from './Webservice/app.service';
 
 @NgModule({
   declarations: [
-    LoginComponent
+    LoginComponent,
+    DashboardComponent,
+    
   ],
   imports: [
     BrowserModule,
     MaterialModule, 
     MdButtonModule,
     MdCheckboxModule,
-    BrowserAnimationsModule,  FormsModule
+    BrowserAnimationsModule,  FormsModule,
+    HttpModule,
+    
+    
+   
   ],
-  providers: [],
+  providers: [WebServiceComponent],
   bootstrap: [LoginComponent]
 })
 export class AppModule { }
