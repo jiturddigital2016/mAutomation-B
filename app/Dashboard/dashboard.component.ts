@@ -4,8 +4,8 @@ import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'dashboard-data',
-    template: `<h1>hi</h1>`,
-
+    templateUrl: `./app/Dashboard/dashboard.component.html`,
+  styleUrls: ['./app/Dashboard/dashboard.component.css'],
 })
 export class DashboardComponent {
 

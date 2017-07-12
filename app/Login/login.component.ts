@@ -24,22 +24,17 @@ password:string;
 
 private url:string='http://192.168.0.62/clara_phonetool/index.php/api/Admin/login';
 
- constructor(private http: Http, private webservice: WebServiceComponent) {
+ constructor(private http: Http,private webservice: WebServiceComponent) {
  }
 ngOnInit()
 {
 
 }
 
-ngOnInit()
-{
-
-}
 getloginDetails()
 {
-
 let data1 = new URLSearchParams();
-  data1.append('username', this.userName);
+  data1.append('username', this.username);
   data1.append('password',this.password);
 let body = data1.toString();
   this.webservice.getuser(body, this.url).subscribe(data =>{

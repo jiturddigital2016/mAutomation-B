@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 
 @Component({
@@ -7,5 +7,5 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './app/FunctionalityReport/functionalityreport.component.html',
   styleUrls: ['./app/FunctionalityReport/functionalityreport.component.css']
 })
-export class FunctionalityReportComponent implements OnInit{
+export class FunctionalityReportComponent {
 }

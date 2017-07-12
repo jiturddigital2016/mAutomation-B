@@ -12,8 +12,8 @@ import { HttpModule } from '@angular/http';
 import { LoginComponent } from './login/login.component';
 import { RouterModule } from '@angular/router';
 import { DashboardComponent } from './Dashboard/dashboard.component';
-
 import { WebServiceComponent } from './Webservice/app.service';
+
 
 @NgModule({
   declarations: [

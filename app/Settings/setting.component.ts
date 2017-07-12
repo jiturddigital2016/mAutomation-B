@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component} from '@angular/core';
 
 
 @Component({
@@ -7,5 +7,5 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './app/Settings/setting.component.html',
   styleUrls: ['./app/Settings/setting.component.css']
 })
-export class SettingComponent implements OnInit{
+export class SettingComponent {
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 
 @Component({
@@ -7,5 +7,5 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './app/Editprofile/editprofile.component.html',
   styleUrls: ['./app/Editprofile/editprofile.component.css']
 })
-export class EditProfileComponent implements OnInit{
+export class EditProfileComponent{
 }

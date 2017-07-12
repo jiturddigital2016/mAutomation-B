@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 import { Response, Headers} from '@angular/http';
 import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/catch'
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 
@@ -47,3 +48,4 @@ var headers = new Headers();
 
     return Observable.throw(errMessage);
   }
+}
