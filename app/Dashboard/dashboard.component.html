@@ -14,7 +14,7 @@
 <button apptogglefullscreen="" class="mat-icon-button padd-icon" md-icon-button=""><span class="mat-button-wrapper ">
       <md-icon class="mat-icon material-icons" role="img" aria-hidden="true">power_settings_new</md-icon>
   </span></button>
-  <span class="padd-left20">{{name}} </span>
+  <span class="padd-left20">{{username}} </span>
        
 </md-toolbar>
 
@@ -26,10 +26,10 @@
   
   <md-list-item class="mat-list-item padd-tb10" role="listitem">
     
-     <a md-line > <button md-icon-button>
+     <a md-line [routerLink]="['/editprofile']"> <button md-icon-button>
         <md-icon>account_circle</md-icon>
-      </button>Alice Burch
-   <span class="material-list-subtitle">Technician</span>
+      </button>{{username}}
+   <span class="material-list-subtitle">{{usertype}}</span>
    </a>
   
   </md-list-item>
@@ -50,7 +50,7 @@
 </a>
 
 <md-nav-list class="sidenav-list sidenav-list-nested mat-nav-list" fxlayout="column" role="list">
-<!----><a class="sidenav-anchor mat-ripple mat-list-item" md-list-item="" md-ripple="" role="listitem" routerlinkactive="active" href="/components/autocomplete"><div class="mat-list-item-content">
+<!----><a class="sidenav-anchor mat-ripple mat-list-item" md-list-item="" md-ripple="" role="listitem" routerlinkactive="active" [routerLink]="['/erasurereport']"><div class="mat-list-item-content">
   <div class="mat-list-item-ripple mat-ripple" md-ripple="">
   </div>
 
@@ -63,8 +63,9 @@
 </a>
 </md-nav-list>
 
+
 <md-nav-list class="sidenav-list sidenav-list-nested mat-nav-list" fxlayout="column" role="list">
-<!----><a class="sidenav-anchor mat-ripple mat-list-item" md-list-item="" md-ripple="" role="listitem" routerlinkactive="active" href="/components/autocomplete"><div class="mat-list-item-content">
+<!----><a class="sidenav-anchor mat-ripple mat-list-item" md-list-item="" md-ripple="" role="listitem" routerlinkactive="active" [routerLink]="['/functionalityreport']"><div class="mat-list-item-content">
   <div class="mat-list-item-ripple mat-ripple" md-ripple="">
   </div>
 <div class="mat-list-text"></div>
@@ -119,7 +120,7 @@
 
 <md-list-item class="mat-list-item padd-tb10" role="listitem">
     
-     <a md-line href="#"> <button md-icon-button>
+     <a md-line [routerLink]="['/previousreport']"> <button md-icon-button>
         <md-icon>restore</md-icon>
       </button>Preivous Reports
   </a>
@@ -134,10 +135,11 @@
   </a>
   
   </md-list-item>
+
   
   <md-list-item class="mat-list-item padd-tb10" role="listitem">
     
-     <a md-line href="#"> <button md-icon-button>
+     <a md-line [routerLink]="['/settings']"> <button md-icon-button>
         <md-icon>settings</md-icon>
       </button>Settings
   </a>

@@ -1,26 +1,26 @@
-
- 
+<nav>
+<dashboard-data></dashboard-data>
+</nav>
  
  <div cdk-scrollable=""  class="mat-sidenav-content">
  
  <div class="settings">
 
 <md-tab-group>
-  <md-tab label="One">
+  <md-tab label="TEST SUITES" (click)="clickMe()">
+  
+	<md-list *ngFor="let suits of Testsuits">
+  <md-list-item>{{suits.name}}</md-list-item>
  
-	<md-list>
-  <md-list-item>Item 1</md-list-item>
-  <md-list-item>Item 2</md-list-item>
-  <md-list-item>Item 3</md-list-item>
 </md-list>
  
   </md-tab>
-  <md-tab label="Two">
+  <md-tab label="DEVICE IMAGES">
     
 	
-	  <md-list-item class="mat-list-item">
+	  <md-list-item class="mat-list-item" >
 	  <div class="setting-tabs-list">
-	  <a md-line href="#"> 
+	  <a md-line href="#" > 
 	  Alice Burch
 	 <span class="setting-list-subtitle">23 devices</span>
 	 </a>
@@ -40,69 +40,58 @@
 	
   </md-tab>
   
-    <md-tab label="Three">
+    <md-tab label="CLIENTS">
     
 	
 	  <md-list-item class="mat-list-item clients-tabs-list">
-	   <span class="settings-text-list-head">Thursday, May 4, 2017</span>
-	  <div class="setting-tabs-list">
+	   <span class="settings-text-list-head">Internal (No Client)</span>
+	  <div class="setting-tabs-list" *ngFor="let client of Client">
 	 
+
+
 	  <a md-line href="#"> 
-	  Alice Burch
-	 <span class="setting-list-subtitle">23 devices</span>
+	  {{client.name}}
+	 <span class="setting-list-subtitle">{{client.phone}}</span>
+	 <span class="setting-list-subtitle">{{client.address}},{{client.city}},{{client.zipcode}}</span>
 	 </a>
-	 <a md-line href="#"> 
-	  Alice Burch
-	 <span class="setting-list-subtitle">23 devices</span>
-	 </a>
+	 
 	  </div>
 	</md-list-item>
 	
 	
   </md-tab>
   
-    <md-tab label="Four">
+    <md-tab label="TECHNICIANS">
 	
 	
 
  
-    <md-list-item class="mat-list-item setting-icon-text-list" role="listitem">
-    <a md-line href="#"> <button md-icon-button>
+    <md-list-item class="mat-list-item setting-icon-text-list" role="listitem" *ngFor="let technician of Technician">
+    <a md-line href="#" > <button md-icon-button>
         <md-icon>account_circle</md-icon>
-      </button>Alice Burch
-	 <span class="material-list-subtitle text-dec-none">3:56 PM<br>23 devices</span>
+      </button>{{technician.username}}
+	 <span class="material-list-subtitle text-dec-none">{{technician.roles}}</span>
 	 </a>
   
   </md-list-item>
   
-     <md-list-item class="mat-list-item setting-icon-text-list" role="listitem">
-    <a md-line href="#"> <button md-icon-button>
-        <md-icon>account_circle</md-icon>
-      </button>Alice Burch
-	 <span class="material-list-subtitle text-dec-none">3:56 PM<br>23 devices</span>
-	 </a>
-  
-  </md-list-item>
+    
  
 
 	
     </md-tab>
 	
 	
-	  <md-tab label="Five">
+	  <md-tab label="SITES">
     
 	
-	  <md-list-item class="mat-list-item clients-tabs-list">
-	   <span class="settings-text-list-head">Thursday, May 4, 2017</span>
+	  <md-list-item class="mat-list-item clients-tabs-list" *ngFor="let site of Site">
+	   <span class="settings-text-list-head">{{site.name}}</span>
 	  <div class="setting-tabs-list">
-	 
-	  <a md-line href="#"> 
-	  Alice Burch
-	 <span class="setting-list-subtitle">23 devices</span>
-	 </a>
+	  
 	 <a md-line href="#"> 
-	  Alice Burch
-	 <span class="setting-list-subtitle">23 devices</span>
+	  
+	 <span class="setting-list-subtitle">{{site.phone}}</span>
 	 </a>
 	  </div>
 	</md-list-item>

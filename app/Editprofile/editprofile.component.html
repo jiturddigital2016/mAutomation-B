@@ -1,24 +1,31 @@
+
+
+<nav>
+<dashboard-data></dashboard-data>
+</nav>
+
+
 <div cdk-scrollable="" class="mat-sidenav-content">
  
 
 
 <md-input-container class="type-material-floating-label">
-  <input mdInput placeholder="Favorite food" value="Sushi">
+  <input mdInput placeholder="Favorite food" value="" [(ngModel)]="editusername" >
 </md-input-container>
 
 
 <table class="example-full-width type-material-floating-label" cellspacing="0"><tr>
     <td><md-input-container class="example-full-width">
-      <input mdInput placeholder="Passphrase" type="password">
+     <input mdInput placeholder="password" type="password" value="" required [(ngModel)]="password" #password1="ngModel">
     </md-input-container></td>
     <td><md-input-container class="example-full-width">
-      <input mdInput placeholder="Passphrase" type="password">
+     <input mdInput placeholder="conformpassword" type="password" value="" required [(ngModel)]="conformpassword" #password1="ngModel" >
     </md-input-container></td>
   </tr></table>
   
   
  <div class="but-container">
- <button md-raised-button class="button-spacer" color="primary">Edit</button>
+ <button md-raised-button class="button-spacer" color="primary"(click)="getEditprofileDetails()"[disabled]="password1.invalid">Edit</button>
  </div>
 
 

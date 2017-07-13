@@ -10,6 +10,7 @@ import 'rxjs/add/operator/map'
 
 import { URLSearchParams } from "@angular/http"
 import { WebServiceComponent } from '../Webservice/app.service';
+import { DataShare } from '../DataShare/datashare';
 
 @Component({
   selector: 'login-page',
@@ -24,7 +25,7 @@ password:string;
 
 private url:string='http://192.168.0.62/clara_phonetool/index.php/api/Admin/login';
 
- constructor(private http: Http,private webservice: WebServiceComponent) {
+ constructor(private http: Http,private webservice: WebServiceComponent,private router: Router, private datashare:DataShare) {
  }
 ngOnInit()
 {
@@ -41,9 +42,11 @@ let body = data1.toString();
 
 if(data.json().status == true)
 {
- 
- console.log(data.json().message);
+ this.datashare.logindetails = data.json().admin;
+ console.log(this.datashare.logindetails);
 
+ 
+this.router.navigate(['/editprofile']);
 }
 else
 {
