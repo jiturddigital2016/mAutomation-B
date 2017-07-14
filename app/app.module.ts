@@ -9,7 +9,7 @@ import { HttpModule } from '@angular/http';
 
 import { WebServiceComponent } from './Webservice/app.service';
 import { DataShare } from './DataShare/datashare';
-
+import { MdDialogModule } from '@angular/material';
 
 
 import { LoginComponent } from './Login/login.component';
@@ -21,6 +21,8 @@ import { PreviousreportComponent } from './PreviousReport/previousreport.compone
 import { ErasurereportComponent } from './ErasureReport/erasurereport.component';
 import { FunctionalityReportComponent } from './FunctionalityReport/functionalityreport.component';
 import { SettingComponent } from './Settings/setting.component';
+import { DialogResultExampleDialog,TechnicianComponent,SuitesComponent,DevicesImagesComponent} from './Settings/setting.component';
+
 
 @NgModule({
   declarations: [
@@ -32,10 +34,25 @@ import { SettingComponent } from './Settings/setting.component';
     PreviousreportComponent,
     ErasurereportComponent,
     FunctionalityReportComponent,
-    SettingComponent
+    SettingComponent,
+	DialogResultExampleDialog,
+  TechnicianComponent,
+  SuitesComponent,
+  DevicesImagesComponent
     
     
   ],
+  
+entryComponents: [
+DialogResultExampleDialog,
+TechnicianComponent,
+SuitesComponent,
+DevicesImagesComponent
+
+
+
+],
+  
   imports: [
     BrowserModule,
     MaterialModule, 
@@ -44,7 +61,8 @@ import { SettingComponent } from './Settings/setting.component';
     BrowserAnimationsModule,  FormsModule,
     HttpModule,
     RouterModule,
-    routes
+    routes,
+	MdDialogModule
     
 
 

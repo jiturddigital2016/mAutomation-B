@@ -23,14 +23,29 @@ editusername:string;
 password : string;
 conformpassword:string;
 userid : string;
-
+usertype: string;
 
 private url:string='http://192.168.0.62/clara_phonetool/api/Technician/changepassword';
 
  constructor(private http: Http,private webservice: WebServiceComponent,private datashare:DataShare) {
 
 this.editusername=this.datashare.logindetails[0].username;
-this.userid=this.datashare.logindetails[0].admin_id;
+this.usertype=this.datashare.logindetails[0].user_type;
+
+if(this.usertype == "admin")
+{
+  this.userid=this.datashare.logindetails[0].admin_id;
+
+  
+}
+else
+{
+  this.userid=this.datashare.logindetails[0].technician_id;
+
+  
+}
+
+
 
  }
 

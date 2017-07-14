@@ -7,7 +7,13 @@
 
 <div cdk-scrollable="" class="mat-sidenav-content">
  
+<md-toolbar>
 
+<span class="padd-left20">{{editusername}}</span>
+
+</md-toolbar>
+
+ <div class="main-content-box">
 
 <md-input-container class="type-material-floating-label">
   <input mdInput placeholder="Favorite food" value="" [(ngModel)]="editusername" >
@@ -27,7 +33,7 @@
  <div class="but-container">
  <button md-raised-button class="button-spacer" color="primary"(click)="getEditprofileDetails()"[disabled]="password1.invalid">Edit</button>
  </div>
-
+</div>
 
 </div>
 

@@ -1,0 +1,57 @@
+<!-- Edit-Device-Image -->
+
+
+<form class="edit-device-image-form">
+  
+  <md-input-container class="example-full-width">
+   <input mdInput placeholder="Name">iPhone 6
+  </md-input-container>
+ 
+    <table class="edit-device-image-full-width" cellspacing="0"><tr>
+    <td><md-input-container class="example-full-width">
+      <input mdInput placeholder="Os Type">iOS
+    </md-input-container></td>
+    <td><md-input-container class="example-full-width">
+      <input mdInput placeholder="OS Version">10.3.1
+    </md-input-container></td>
+  </tr></table>
+  
+  
+   <div class="edit-device-image-full-width">
+ <span class="edit-device-image-chk-level1">Filters</span> 
+</div>
+  
+  <div class="edit-device-image-but-container">
+ <span class="edit-device-image-chk-level2">IDI DeviceType: iPhone6,1</span> 
+  <span class="technician-flex-spacer"></span> 
+  <md-icon class="padd-top5px">home</md-icon>
+</div>
+  
+    <div class="edit-device-image-but-container">
+ <span class="edit-device-image-chk-level2">IDI DeviceType: iPhone6,1</span> 
+  <span class="technician-flex-spacer"></span> 
+  <md-icon class="padd-top5px">home</md-icon>
+</div>
+
+  <div class="edit-device-image-but-container">
+<span class="technician-flex-spacer"></span> 
+<button md-button>SHUTDOWN</button>
+</div>
+    
+<div class="edit-technician-but-container">
+         <md-slide-toggle
+         [color]="color"
+          [checked]="checked"
+          [disabled]="disabled">
+       Image enabled
+      </md-slide-toggle>
+  <span class="technician-flex-spacer"></span> 
+  <button md-button>CANCEL</button>
+  <!-- Can optionally provide a result for the closing dialog. -->
+  <button md-button>SHUTDOWN</button>
+</div>
+
+</form>
+
+
+<!-- Edit-Device-Image -->

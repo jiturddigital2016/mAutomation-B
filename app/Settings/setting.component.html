@@ -4,20 +4,37 @@
  
  <div cdk-scrollable=""  class="mat-sidenav-content">
  
+ <md-toolbar>
+
+<span class="padd-left20">Settings</span>
+
+</md-toolbar>
+
+
+  <div class="main-content-box">
+   
+ 
  <div class="settings">
 
 <md-tab-group>
   <md-tab label="TEST SUITES" (click)="clickMe()">
-  
+   <div class="tab-max-height">
 	<md-list *ngFor="let suits of Testsuits">
   <md-list-item>{{suits.name}}</md-list-item>
  
 </md-list>
- 
+
+
+ <div class="setting-popup-but">
+
+<a md-fab (click)="SuiteDialog()"><md-icon>add</md-icon></a>
+ </div>
+
+  </div>
   </md-tab>
   <md-tab label="DEVICE IMAGES">
     
-	
+	<div class="tab-max-height">
 	  <md-list-item class="mat-list-item" >
 	  <div class="setting-tabs-list">
 	  <a md-line href="#" > 
@@ -36,13 +53,18 @@
 	  </div>
 	</md-list-item>
 	
-	
+	 </div>
+	 
+	  <div class="setting-popup-but">
+
+<a md-fab (click)="DeviceimageDialog()"><md-icon>add</md-icon></a>
+ </div>
 	
   </md-tab>
   
     <md-tab label="CLIENTS">
     
-	
+	<div class="tab-max-height">
 	  <md-list-item class="mat-list-item clients-tabs-list">
 	   <span class="settings-text-list-head">Internal (No Client)</span>
 	  <div class="setting-tabs-list" *ngFor="let client of Client">
@@ -57,14 +79,19 @@
 	 
 	  </div>
 	</md-list-item>
-	
+	 </div>
+	 
+	 <div class="setting-popup-but">
+
+<a md-fab (click)="openDialog()"><md-icon>add</md-icon></a>
+ </div>
 	
   </md-tab>
   
     <md-tab label="TECHNICIANS">
 	
 	
-
+<div class="tab-max-height">
  
     <md-list-item class="mat-list-item setting-icon-text-list" role="listitem" *ngFor="let technician of Technician">
     <a md-line href="#" > <button md-icon-button>
@@ -75,16 +102,19 @@
   
   </md-list-item>
   
-    
+ </div>
  
+ <div class="setting-popup-but">
 
+<a md-fab (click)="TechnicanDialog()"><md-icon>add</md-icon></a>
+ </div>
 	
     </md-tab>
 	
 	
 	  <md-tab label="SITES">
     
-	
+	<div class="tab-max-height">
 	  <md-list-item class="mat-list-item clients-tabs-list" *ngFor="let site of Site">
 	   <span class="settings-text-list-head">{{site.name}}</span>
 	  <div class="setting-tabs-list">
@@ -96,12 +126,19 @@
 	  </div>
 	</md-list-item>
 	
-	
+	</div>
+
+ <div class="setting-popup-but">
+
+<a md-fab (click)="openDialog()"><md-icon>add</md-icon></a>
+ </div>
+
+
   </md-tab>
   
-  	  <md-tab label="Six">
+  	  <md-tab label="ABOUT">
     
-	
+	<div class="tab-max-height">
 	 
 	  <div class="setting-about-us">
 		
@@ -130,7 +167,13 @@
 		
 	  </div>
 
+	</div>
 	
+	
+	<div class="setting-popup-but">
+
+<a md-fab><md-icon>add</md-icon></a>
+ </div>
 	
   </md-tab>
 	
@@ -139,4 +182,5 @@
  
  </div>
   
+    </div>
   </div>

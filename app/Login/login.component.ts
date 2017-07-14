@@ -42,7 +42,7 @@ let body = data1.toString();
 
 if(data.json().status == true)
 {
- this.datashare.logindetails = data.json().admin;
+ this.datashare.logindetails = data.json().login;
  console.log(this.datashare.logindetails);
 
  

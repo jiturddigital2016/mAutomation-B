@@ -28,7 +28,15 @@ private url:string='http://192.168.0.62/clara_phonetool/api/Report/reports';
 
  constructor(private http: Http,private webservice: WebServiceComponent,private router: Router, public datashare:DataShare) {
 
-this.userid=this.datashare.logindetails[0].admin_id;
+
+if(this.datashare.logindetails[0].user_type == "admin")
+{
+  this.userid=this.datashare.logindetails[0].admin_id;
+}
+else
+{
+  this.userid=this.datashare.logindetails[0].technician_id;
+}
 
  }
 ngOnInit()
@@ -37,7 +45,11 @@ console.log("sample"+this.userid);
 console.log("sample"+this.datashare.logindetails[0].admin_id);
 
 let data1 = new URLSearchParams();
-  data1.append('technician_id', this.datashare.logindetails[0].admin_id);
+  data1.append('technician_id', this.userid);
+
+
+
+
  
 let body = data1.toString();
   this.webservice.getuser(body, this.url).subscribe(data =>{

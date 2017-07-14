@@ -19,6 +19,21 @@ transition-property: transform,margin-left,margin-right;
 padding:0px 0px 0px 0px;
 }
 
+
+
+.mat-sidenav-content md-toolbar
+{
+	background:#3f51b5;
+	color:#fff;
+	max-height:64px !important;
+}
+
+.main-content-box
+{
+	padding:30px 20px 0px 20px;
+}
+
+
 .demo-list {
     margin: 24px 0;
     background: #fff;

@@ -150,3 +150,8 @@ margin: 0 auto
 
 }
 
+.center  .md-input-container
+
+{
+    width:300px !important;
+}
