@@ -24,7 +24,7 @@ PreviousReport:Array<any>;
 
 userid: string;
 
-private url:string='http://192.168.0.62/clara_phonetool/api/Report/reports';
+
 
  constructor(private http: Http,private webservice: WebServiceComponent,private router: Router, public datashare:DataShare) {
 
@@ -52,7 +52,7 @@ let data1 = new URLSearchParams();
 
  
 let body = data1.toString();
-  this.webservice.getuser(body, this.url).subscribe(data =>{
+  this.webservice.getuser(body, this.datashare.Previous_Report_API).subscribe(data =>{
 
 this.PreviousReport=data.json().Reports;
 

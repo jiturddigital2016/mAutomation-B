@@ -38,7 +38,7 @@ let data1 = new URLSearchParams();
   data1.append('username', this.username);
   data1.append('password',this.password);
 let body = data1.toString();
-  this.webservice.getuser(body, this.url).subscribe(data =>{
+  this.webservice.getuser(body, this.datashare.login_API).subscribe(data =>{
 
 if(data.json().status == true)
 {

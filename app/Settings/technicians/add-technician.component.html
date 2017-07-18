@@ -1,20 +1,20 @@
 <!--Edit-technician-->
 
-
+<div class="edit-technician-form">
   
-  <md-input-container class="example-full-width">
+  <md-input-container class="edit-technician-full-width">
    <input mdInput placeholder="Name" [(ngModel)]="name" name="ngModel">
   </md-input-container>
   
-  <md-input-container class="example-full-width">
+  <md-input-container class="edit-technician-full-width">
    <input mdInput placeholder="Username" [(ngModel)]="username" username="ngModel">
   </md-input-container>
     
     <table class="edit-technician-full-width" cellspacing="0"><tr>
-    <td><md-input-container class="example-full-width">
+    <td><md-input-container class="edit-technician-full-width">
       <input mdInput placeholder="Passphrase" [(ngModel)]="password" password="ngModel">
     </md-input-container></td>
-    <td><md-input-container class="example-full-width">
+    <td><md-input-container class="edit-technician-full-width">
       <input mdInput placeholder="Passphrase Confirm" [(ngModel)]="confirmpassword" confirmpasswod="ngModel">
     </md-input-container></td>
   </tr></table>
@@ -120,12 +120,12 @@
         Login enabled
       </md-slide-toggle>
   <span class="technician-flex-spacer"></span> 
-  <button md-button>CANCEL</button>
+  <button md-button md-dialog-close={{name}}>CANCEL</button>
   <!-- Can optionally provide a result for the closing dialog. -->
   <button md-button md-dialog-close={{name}} (click)="addTechnicians()">SAVE</button>
 </div>
 
 
-
+</div>
 
 <!--Edit-technician-->

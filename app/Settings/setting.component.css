@@ -113,7 +113,7 @@ padding:0px 0px 0px 0px;
 {
 	padding:20px;
 	max-height:500px;
-    overflow-y: scroll;
+     overflow-y:auto;
 }
 
 
@@ -148,4 +148,11 @@ height:100% !important;
 .tab-max-height
 {
 	min-height:80vh;
+}
+
+.tab-cont-box
+{
+	padding:20px;
+	max-height:500px;
+    overflow-y:auto;
 }

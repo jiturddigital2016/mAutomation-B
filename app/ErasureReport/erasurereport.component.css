@@ -37,6 +37,8 @@ padding:0px 0px 0px 0px;
     background: #fff;
     width:32%; 
 	margin-right:10px;
+	max-height:200px;
+	overflow-y:auto;
 }
 
 
@@ -167,28 +169,9 @@ padding:0px 0px 0px 0px;
 }
 
 
-.docs-footer-list {
 
-    display: -webkit-box;
-    display:flex;
- 
-    flex-flow: row wrap;
-    /* padding: 8px; */
-}
 
-.docs-footer
-{
-	  display: -webkit-box;
-    display:flex;
- 
-    flex-flow: row wrap;
-    /* padding: 8px; */
-	
-}
 
-.flex-spacer {
-  flex: 1 1 auto;
-}
 
 .button-spacer {
 	margin: 0 14px;
@@ -197,7 +180,13 @@ padding:0px 0px 0px 0px;
 .docs-footer md-toolbar{
     background:#40c4ff;
     color: #fff;
+	 display:flex;
 }
+
+.flex-spacer {
+  flex: 1 1 auto;
+}
+
 
 .but-medium-blue
 {
@@ -214,16 +203,24 @@ padding:0px 0px 0px 0px;
 }
 
 
-.float-rht
-{
-	float:right;
-}
-
-
 .erasure-report-select-bar .mat-select-arrow
 
 {
 	color:#fff !important;
+}
+
+
+
+.edit-test-suite-but-container
+{
+display:flex;
+margin:10px 0px 0px 0px;
+padding:25px 0px 0px 0px;
+border-top:1px solid #ddd;
+}
+.edit-test-suite-flex-spacer
+{
+flex:1 1 auto;
 }
 
 

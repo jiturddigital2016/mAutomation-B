@@ -39,6 +39,8 @@ padding:0px 0px 0px 0px;
     background: #fff;
     width:32%; 
 	margin-right:10px;
+	max-height:200px;
+	overflow-y:auto;
 }
 
 
@@ -169,18 +171,7 @@ padding:0px 0px 0px 0px;
 }
 
 
-.docs-footer-list {
 
-    display: -webkit-box;
-    display:flex;
- 
-    flex-flow: row wrap;
-    /* padding: 8px; */
-}
-
-.example-spacer {
-  flex: 1 1 auto;
-}
 
 .button-spacer {
 	margin: 0 14px;
@@ -189,7 +180,13 @@ padding:0px 0px 0px 0px;
 .docs-footer md-toolbar{
     background:#40c4ff;
     color: #fff;
+	 display:flex;
 }
+
+.flex-spacer {
+  flex: 1 1 auto;
+}
+
 
 .but-medium-blue
 {
@@ -204,6 +201,7 @@ padding:0px 0px 0px 0px;
 	color:#333 !important;
 	
 }
+
 
 
 /* Erasure report*/

@@ -58,7 +58,7 @@ if (this.password == this.conformpassword)
   data1.append('technician_id', this.userid);
   data1.append('password',this.password);
 let body = data1.toString();
-  this.webservice.getuser(body, this.url).subscribe(data =>{
+  this.webservice.getuser(body, this.datashare.Changepassword_API).subscribe(data =>{
 
 if(data.json().status == true)
 {

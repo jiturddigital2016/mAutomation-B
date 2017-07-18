@@ -2,7 +2,7 @@
 
 
 .edit-device-image-form {
-  width:100%;
+  width:600px;
 /*   padding:20px 20px; */
   font-family: Roboto Regular, sans-serif;
 }
@@ -32,9 +32,20 @@ padding-left:48px;
 {
 display:flex;
 margin:10px 0px;
-padding:25px 0px;
+padding:5px 0px;
+}
+
+
+
+.edit-device-image-but-container2
+{
+display:flex;
+margin:0px 0px;
+padding:20px 0px 0px 0px;
 border-top:1px solid #ddd;
 }
+
+
 .edit-device-image-flex-spacer
 {
 flex:1 1 auto;
@@ -42,6 +53,17 @@ flex:1 1 auto;
 
 .margin10 {
   margin: 10px;
+}
+
+.padd-top5px
+{
+	padding-top:7px;
+}
+
+.edit-device-small-text{
+	
+	    font-size: 15px;
+		padding-left:3px;
 }
 
 /* Edit-Device-Image */

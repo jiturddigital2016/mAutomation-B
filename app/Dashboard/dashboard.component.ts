@@ -12,6 +12,8 @@ export class DashboardComponent {
 username:string;
 usertype:string;
 
+hide:boolean;
+
 
     public constructor(private route: ActivatedRoute,private datashare:DataShare)
     {
@@ -23,8 +25,28 @@ this.usertype=this.datashare.logindetails[0].user_type;
 
     }
         
-   
+   getloginDetails()
+   {
+if(this.hide)
+{
+	this.hide=false;
+
+}
 
 
+else
+{
+this.hide=true;
+
+	
+}
+
+   }
+
+hidedata()
+{
+	
+	console.log("venkatesh testing");
+}
 
 }

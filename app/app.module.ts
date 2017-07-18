@@ -21,7 +21,7 @@ import { PreviousreportComponent } from './PreviousReport/previousreport.compone
 import { ErasurereportComponent } from './ErasureReport/erasurereport.component';
 import { FunctionalityReportComponent } from './FunctionalityReport/functionalityreport.component';
 import { SettingComponent } from './Settings/setting.component';
-import { DialogResultExampleDialog,TechnicianComponent,SuitesComponent,DevicesImagesComponent} from './Settings/setting.component';
+import { DialogResultExampleDialog,TechnicianComponent,SuitesComponent,DevicesImagesComponent,SitesComponent} from './Settings/setting.component';
 
 
 @NgModule({
@@ -38,7 +38,8 @@ import { DialogResultExampleDialog,TechnicianComponent,SuitesComponent,DevicesIm
 	DialogResultExampleDialog,
   TechnicianComponent,
   SuitesComponent,
-  DevicesImagesComponent
+  DevicesImagesComponent,
+  SitesComponent
     
     
   ],
@@ -47,7 +48,8 @@ entryComponents: [
 DialogResultExampleDialog,
 TechnicianComponent,
 SuitesComponent,
-DevicesImagesComponent
+DevicesImagesComponent,
+SitesComponent
 
 
 
