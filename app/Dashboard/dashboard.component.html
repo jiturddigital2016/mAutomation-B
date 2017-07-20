@@ -14,12 +14,12 @@
 
       </div>
 </div>
-  <button  [routerLink]="['/login']" apptogglefullscreen="" class="mat-icon-button padd-icon" md-icon-button=""><span class="mat-button-wrapper ">
+  <button md-button (click)="shutdown()" [routerLink]="['/login']" apptogglefullscreen="" class="mat-icon-button padd-icon" md-icon-button=""><span class="mat-button-wrapper ">
       <md-icon class="mat-icon material-icons" role="img" aria-hidden="true">lock_outline</md-icon>
   </span>
   </button>
   
-<button apptogglefullscreen="" class="mat-icon-button padd-icon" md-icon-button=""><span class="mat-button-wrapper ">
+<button    apptogglefullscreen="" class="mat-icon-button padd-icon" md-icon-button=""><span class="mat-button-wrapper ">
       <md-icon class="mat-icon material-icons" role="img" aria-hidden="true">power_settings_new</md-icon>
   </span></button>
 

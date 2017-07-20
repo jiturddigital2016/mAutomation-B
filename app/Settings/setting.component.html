@@ -20,9 +20,9 @@
   <md-tab label="TEST SUITES" (click)="clickMe()">
    <div class="tab-max-height">
    
-    <div class="tab-cont-box">
+    <div  class="tab-cont-box">
 	<md-list *ngFor="let suits of Testsuits">
-  <md-list-item>{{suits.name}}</md-list-item>
+  <md-list-item (click)="Edit_Testsuites_Details()">{{suits.name}}</md-list-item>
  
 </md-list>
 
@@ -88,7 +88,7 @@
 	  </div>
 	 <div class="setting-popup-but">
 
-<a md-fab (click)="openDialog()"><md-icon>add</md-icon></a>
+<a md-fab (click)="Add_Client_Details()"><md-icon>add</md-icon></a>
  </div>
 	
   </md-tab>
@@ -99,7 +99,7 @@
 <div class="tab-max-height">
  <div class="tab-cont-box">
     <md-list-item class="mat-list-item setting-icon-text-list" role="listitem" *ngFor="let technician of Technician">
-    <a md-line (click)="TechnicanDialog()" > <button md-icon-button>
+    <a md-line (click)="Edit_Technican_Details($event, technician)" > <button md-icon-button>
         <md-icon>account_circle</md-icon>
       </button>{{technician.username}}
 	 <span class="material-list-subtitle text-dec-none">{{technician.roles}}</span>
@@ -111,7 +111,7 @@
  
  <div class="setting-popup-but">
 
-<a md-fab (click)="TechnicanDialog()"><md-icon>add</md-icon></a>
+<a md-fab (click)="TechnicianDialog()"><md-icon>add</md-icon></a>
  </div>
 	
     </md-tab>

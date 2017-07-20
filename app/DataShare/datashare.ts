@@ -10,6 +10,15 @@ export class DataShare{
   public edit_site:string;
  public Edit_Site_Detials: any;
 
+
+ public edit_tecnician:string;
+ public Edit_technician_Detials: any;
+
+ public edit_testsuites:boolean;
+ public Edit_TestSuites_Detials: any;
+
+
+
 public login_API: string ='http://aryvartdev.com/clara_phonetool/index.php/api/Admin/login';
 
 public Changepassword_API:string ='http://aryvartdev.com/clara_phonetool/api/Technician/changepassword';
@@ -40,7 +49,10 @@ public Client_Edit_API: string ='http://aryvartdev.com/clara_phonetool/api/Clien
 
 public Site_Edit_API: string ='http://aryvartdev.com/clara_phonetool/api/Site/editsite';
 
+public Technician_Edit_API: string ='http://aryvartdev.com/clara_phonetool/api/Technician/edittechnician';
 
+
+public Display_Testsuites_API: string ='http://aryvartdev.com/clara_phonetool/api/Test/testsuite';
 
 
     public constructor() { }

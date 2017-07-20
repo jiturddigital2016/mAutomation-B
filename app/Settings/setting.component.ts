@@ -27,15 +27,39 @@ Client:Array<any>;
 Technician:Array<any>;
 Site:Array<any>;
 compare:String;
+userid:string;
+usertype:string;
+
+public edited = false;
+
+site:boolean=true;
 
 
-constructor(private http: Http,public dialog: MdDialog,private datashare:DataShare) {
+constructor(private http: Http,public dialog: MdDialog,private datashare:DataShare,private webservice: WebServiceComponent) {
     this.Testsuits = [
     {  name: 'AllTests'},
     { name: 'All Manual Tests' },
     { name: 'All Automated Tests' }
     
     ];
+
+this.usertype=this.datashare.logindetails[0].user_type;
+
+if( this.usertype== "admin")
+{
+  
+this.userid=this.datashare.logindetails[0].admin_id;
+  
+}
+else
+{
+  this.userid=this.datashare.logindetails[0].technician_id;
+
+  
+}
+
+
+
   }
 
 ngOnInit()
@@ -61,12 +85,71 @@ this.http.get(this.datashare.Display_Sitesdetails_API)
       .subscribe(data => {
         console.log(data.json().Site); 
         this.Site= data.json().Site;
-       console.log(this.Technician); 
+       
       });
+
+
+this.Testsuites_webservice_call();
+
+
+
+
+
+
+
 
 
 
 }
+
+Testsuites_webservice_call()
+{
+  
+let data1 = new URLSearchParams();
+  
+  
+if(this.usertype == "admin")
+{
+  
+data1.append('adminid',this.userid); 
+  console.log("**************"); 
+}
+else
+{
+  
+data1.append('technicianid',this.userid);
+  console.log("$$$$$$$$$$$$$"); 
+}
+
+
+let body = data1.toString();
+
+console.log(body);
+  this.webservice.getuser(body, this.datashare.Display_Testsuites_API).subscribe(data =>{
+
+ 
+ console.log(data.json());
+this.datashare.edit_testsuites=data.json().status;
+this.datashare.Edit_TestSuites_Detials=data.json().testsuitedata;
+
+  err =>
+  {
+alert("error getting")
+
+  }
+
+});
+
+
+
+
+}
+
+
+
+
+
+
 
 
 Edit_Client_Details($event, client)
@@ -76,7 +159,7 @@ console.log(client);
 this.datashare.edit_client="Edit";
 this.datashare.Edit_Client_Detials=client;
 
-    let dialogRef =this.dialog.open(DialogResultExampleDialog);
+    let dialogRef =this.dialog.open(AddClientComponent);
 
 
 
@@ -107,13 +190,13 @@ this.http.get(this.datashare.Display_Clientdetails_API)
 
 
 
-    openDialog() {
+    Add_Client_Details(){
 
 this.datashare.edit_client="Add";
 
 console.log("sample"+this.datashare.edit_client)
 
-    let dialogRef =this.dialog.open(DialogResultExampleDialog);
+    let dialogRef =this.dialog.open(AddClientComponent);
 
 
 
@@ -139,9 +222,39 @@ this.http.get(this.datashare.Display_Clientdetails_API)
   }
 
 
+Edit_Technican_Details($event, technician)
+{
+  console.log(technician);
+
+this.datashare.edit_tecnician="Edit";
+this.datashare.Edit_technician_Detials=technician;
+ let dialogRef =this.dialog.open(TechnicianComponent);
+
+dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
 
 
- TechnicanDialog() {
+this.http.get(this.datashare.Display_Techniciandetails_API)
+      .subscribe(data => {
+        console.log(data.json().Technician); 
+        this.Technician = data.json().Technician;
+       console.log(this.Technician); 
+      });
+
+
+
+    });
+
+
+}
+
+
+
+
+ TechnicianDialog() {
+
+this.datashare.edit_tecnician="Add";
+
   let dialogRef =this.dialog.open(TechnicianComponent);
 
  dialogRef.afterClosed().subscribe(result => {
@@ -163,8 +276,28 @@ this.http.get(this.datashare.Display_Techniciandetails_API)
 
   }
 
+
+Edit_Testsuites_Details()
+{
+  let dialogRef = this.dialog.open(SuitesComponent);
+dialogRef.afterClosed().subscribe(result => {
+
+ this.Testsuites_webservice_call();
+
+ });
+
+}
+
+
+
 SuiteDialog() {
-    this.dialog.open(SuitesComponent);
+   let dialogRef = this.dialog.open(SuitesComponent);
+dialogRef.afterClosed().subscribe(result => {
+
+ this.Testsuites_webservice_call();
+
+ });
+
   }
 
 DeviceimageDialog() {
@@ -257,13 +390,13 @@ this.http.get(this.datashare.Display_Sitesdetails_API)
 
 @Component({
   selector: 'dialog-result-example-dialog',
-  templateUrl: './app/Settings/setting-popup.component.html',
-    styleUrls: ['./app/Settings/setting-popup.component.css']
+  templateUrl: './app/Settings/clients/add_clients.component.html',
+    styleUrls: ['./app/Settings/clients/add_clients.component.css']
 })
 
 
 
-export class DialogResultExampleDialog {
+export class AddClientComponent {
 
 name: string;
 phone:string;
@@ -288,7 +421,7 @@ url:string;
 
 
 
-  constructor(public dialogRef: MdDialogRef<DialogResultExampleDialog>, private webservice: WebServiceComponent,private datashare:DataShare) {
+  constructor(public dialogRef: MdDialogRef<AddClientComponent>, private webservice: WebServiceComponent,private datashare:DataShare) {
 
 
 
@@ -349,7 +482,7 @@ console.log("testing"+this.datashare.edit_client);
 
 cancelClients()
 {
-  
+  this.dialogRef.close(AddClientComponent);
 
 
 }
@@ -398,6 +531,7 @@ let data1 = new URLSearchParams();
   data1.append('state',this.state);
   data1.append('zipcode',this.postalcode);
   data1.append('notes',this.note);
+  data1.append('country',this.country);
   data1.append('client_enabled',this.client_enabled);
 
 if(this.open_popup == "Edit")
@@ -460,19 +594,22 @@ password:string;
 confirmpassword:string;
 role:string="";
 loginenabledstatus:string;
+comparedata:string;
+technician_id:string;
+url:string;
 
 
-technicians :boolean = true;
-suites:boolean = true;
-fulldevicelogs:boolean = true;
-deviceimages:boolean = true;
-clients:boolean = true;
-sites:boolean = true;
-usb:boolean = true;
-license:boolean = true;
-fullreport:boolean = true;
-poweroff:boolean = true;
-loginenabled:boolean = true;
+technicians :boolean = false;
+suites:boolean = false;
+fulldevicelogs:boolean = false;
+deviceimages:boolean = false;
+clients:boolean = false;
+sites:boolean = false;
+usb:boolean = false;
+license:boolean = false;
+fullreport:boolean = false;
+poweroff:boolean = false;
+loginenabled:boolean = false;
 arraydata:Array<any>;
 
 
@@ -490,7 +627,118 @@ dataloginenabled:string;
 
 
  
-  constructor(public dialogRef: MdDialogRef<TechnicianComponent>,private webservice: WebServiceComponent,private datashare:DataShare) {}
+  constructor(public dialogRef: MdDialogRef<TechnicianComponent>,private webservice: WebServiceComponent,private datashare:DataShare) {
+
+
+if (this.datashare.edit_tecnician=="Edit")
+{
+  this.username=this.datashare.Edit_technician_Detials.username;
+this.name=this.datashare.Edit_technician_Detials.fullname;
+
+this.arraydata = this.datashare.Edit_technician_Detials.roles.split(",");
+
+
+console.log([this.arraydata[0].length]);
+
+this.technician_id=this.datashare.Edit_technician_Detials.technician_id;
+
+
+if(this.datashare.Edit_technician_Detials.login_access =="1")
+{
+  this.loginenabled =true;
+}
+else
+{
+  this.loginenabled =false;
+
+}
+
+
+for(var i=0;i<10;i++)
+{
+  
+
+  this.comparedata=this.arraydata[i];
+
+  console.log(this.comparedata);
+
+  if(this.comparedata=="Manages technicias")
+  {
+this.technicians =true;
+
+  }
+
+if(this.comparedata=="Manages test suites")
+  {
+this.suites =true;
+
+  }
+
+if(this.comparedata=="Canview full devicelogs")
+  {
+this.fulldevicelogs =true;
+
+  }
+
+if(this.comparedata=="Manages deviceimages")
+  {
+this.deviceimages =true;
+
+  }
+if(this.comparedata=="Manages clients")
+  {
+this.clients =true;
+
+  }
+if(this.comparedata=="Manages sites")
+  {
+this.sites =true;
+
+  }
+if(this.comparedata=="Manages USBhubs")
+  {
+this.usb =true;
+
+  }
+if(this.comparedata=="Manages license importing")
+  {
+this.license =true;
+
+  }
+
+
+if(this.comparedata=="Can viewfull report history")
+  {
+this.fullreport =true;
+
+  }
+
+if(this.comparedata=="Can poweroff the system")
+  {
+this.poweroff =true;
+
+  }
+
+
+}
+
+
+
+console.log("venaktesh"+this.role);
+
+
+}
+else
+{
+  
+
+
+}
+
+
+
+
+  }
 
 
 
@@ -501,8 +749,12 @@ dataloginenabled:string;
 addTechnicians()
 {
   
- console.log(this.technicians); 
-
+ console.log(this.password); 
+if(this.password == undefined)
+{
+  alert("Please enter the password")
+}else
+{
 
 if(this.password == this.confirmpassword)
 {
@@ -593,10 +845,7 @@ else
 
 }
 
-this.arraydata = this.role.split(",");
-alert(this.arraydata[0]);
 
-console.log("venaktesh"+this.role);
 
 
 let data1 = new URLSearchParams();
@@ -607,11 +856,27 @@ data1.append('username',this.username);
 
  data1.append('login_access',this.loginenabledstatus);
 
+if(this.datashare.edit_tecnician=="Edit")
+{
+  
+data1.append('technicainid',this.technician_id);
+
+this.url=this.datashare.Technician_Edit_API;
+
+}
+else
+{
+  this.url=this.datashare.Technician_Register_API;
+
+}
+
+
+
  
 let body = data1.toString();
 
 console.log(body);
-  this.webservice.getuser(body, this.datashare.Technician_Register_API).subscribe(data =>{
+  this.webservice.getuser(body,this.url ).subscribe(data =>{
  
 
  
@@ -653,7 +918,7 @@ else
 
 
 }
-
+}
 
 
 }
@@ -661,11 +926,12 @@ else
 
 @Component({
   selector: 'dialog-add-suites',
-  templateUrl: './app/Settings/suites/add-suites.component.html',
-    styleUrls: ['./app/Settings/suites/add-suites.component.css']
+  templateUrl: './app/Settings/testsuites/add-suites.component.html',
+    styleUrls: ['./app/Settings/testsuites/add-suites.component.css']
 })
 
-export class SuitesComponent {
+export class SuitesComponent implements OnInit
+{
 
 
 alltests:boolean;
@@ -686,8 +952,11 @@ data_all_automated_tests:string;
 data_all_manual_tests:string;
 data_suite_enabled:string;
 
+All_testSuties_Names:string;
 
+All_testSuties_Names_data:Array<any>;
 
+All_testSuties_Names_count:number;
 
 
 
@@ -752,8 +1021,435 @@ MT_Carrier_Lock:boolean;
 
 
 
-  constructor(public dialogRef: MdDialogRef<SuitesComponent>,private webservice: WebServiceComponent,private datashare:DataShare) {}
+  constructor(public dialogRef: MdDialogRef<SuitesComponent>,private webservice: WebServiceComponent,private datashare:DataShare) {
 
+
+
+
+}
+
+
+
+
+
+ 
+
+
+ngOnInit() 
+{
+  
+
+
+if(this.datashare.edit_testsuites)
+{
+if(this.datashare.Edit_TestSuites_Detials[0].only_manual == 1)
+{
+  this.run_manualtest=true;
+this.data_run_manualtest="1";
+
+}
+else
+{
+   this.run_manualtest=false;
+this.data_run_manualtest="0";
+
+}
+
+if(this.datashare.Edit_TestSuites_Detials[0].suite_enabled == 1)
+{
+ this.suite_enabled=true;
+this.data_suite_enabled="1"
+
+}
+else
+{
+  this.suite_enabled=false;
+this.data_suite_enabled="0"
+
+}
+
+
+
+
+
+  if(this.datashare.Edit_TestSuites_Detials[0].all_tests == 1)
+  {
+
+  this.showAllAutomationTests();
+  this.ShowAllManualTests();
+this.alltests=true;
+  this.all_automated_tests=true;
+this.all_manual_tests=true;
+
+
+  }
+else if(this.datashare.Edit_TestSuites_Detials[0].automated_tests == 1)
+{
+  
+this.showAllAutomationTests();
+this.all_automated_tests=true;
+
+}
+else if(this.datashare.Edit_TestSuites_Detials[0].manual_tests == 1)
+{
+  this.ShowAllManualTests();
+this.all_manual_tests=true;
+
+  
+}
+else
+{
+  if(this.datashare.Edit_TestSuites_Detials[0].test_names == " ")
+  {
+
+  }
+else
+{
+
+this.All_testSuties_Names_data = this.datashare.Edit_TestSuites_Detials[0].test_names.split(",");
+console.log([this.All_testSuties_Names_data.length]);
+
+ 
+this.All_testSuties_Names_count=this.All_testSuties_Names_data.length;
+
+
+console.log(this.All_testSuties_Names_count);
+
+
+for(var i=0;i<this.All_testSuties_Names_count;i++)
+{
+  
+console.log("venkatesh"+i);
+
+this.All_testSuties_Names=this.All_testSuties_Names_data[i];
+
+if(this.All_testSuties_Names=="WiFi")
+{
+this.AT_wifi=true;
+}
+if(this.All_testSuties_Names=="GPS")
+{
+this.AT_Gps=true;
+}
+
+if(this.All_testSuties_Names=="Vibration Accelerometer")
+{
+this.AT_Vibration_Accelerometer=true;
+}
+if(this.All_testSuties_Names=="Cellular")
+{
+this.AT_Cellular=true;
+}
+if(this.All_testSuties_Names=="Blutooth")
+{
+this.AT_Blutooth=true;
+}
+if(this.All_testSuties_Names=="Device is not jailbroken")
+{
+this.AT_device_not_jailbroken=true;
+}
+ 
+if(this.All_testSuties_Names=="Battery Charge")
+{
+this.AT_Battery_charge=true;
+}
+
+if(this.All_testSuties_Names=="Camera(back) Flashlight")
+{
+this.AT_Camera_Back_Flashlight=true;
+}
+
+if(this.All_testSuties_Names=="Camera(front)-Read QR")
+{
+this.AT_Camera_Front_Flashlight=true;
+}
+
+if(this.All_testSuties_Names=="Camera(back)-Read QR")
+{
+this.AT_Camera_Back_ReadQR=true;
+}
+ 
+ if(this.All_testSuties_Names=="Microphone Speaker")
+{
+this.AT_Microphone_Speaker=true;
+}
+
+ if(this.All_testSuties_Names=="USB Data")
+{
+this.AT_Usb_Data=true;
+}
+
+ if(this.All_testSuties_Names=="USB Power")
+{
+this.AT_Usb_Power=true;
+}
+
+ if(this.All_testSuties_Names=="AT_Usb_Power")
+{
+this.AT_Usb_Data=true;
+}
+
+if(this.All_testSuties_Names=="IMEI Blacklist")
+{
+this.AT_IMEI_Blacklist=true;
+}
+
+if(this.All_testSuties_Names=="SIM Card")
+{
+this.AT_Simcard=true;
+}
+
+if(this.All_testSuties_Names=="Activation Lock")
+{
+this.AT_Activation_Lock=true;
+}
+
+if(this.All_testSuties_Names=="Carrier Lock")
+{
+this. AT_Carrier_Lock=true;
+}
+
+if(this.All_testSuties_Names=="Warranty")
+{
+this.AT_Warranty=true;
+}
+
+
+if(this.All_testSuties_Names=="MT_Touchscreen(single touch)")
+{
+this.MT_Touchscreen_singletouch=true;
+}
+
+if(this.All_testSuties_Names=="MT_Touchscreen(multi-touch)")
+{
+this.MT_Touchscreen_multitouch=true;
+}
+
+
+if(this.All_testSuties_Names=="MT_Screen Brightness")
+{
+this.MT_Screen_Brightness=true;
+}
+
+
+
+if(this.All_testSuties_Names=="MT_Dead pixels")
+{
+this.MT_Dead_Pixels=true;
+}
+
+
+if(this.All_testSuties_Names=="MT_Fingerprint Reader")
+{
+this.MT_Fingerprint=true;
+}
+
+if(this.All_testSuties_Names=="MT_Home Button")
+{
+this.MT_Home_Button=true;
+}
+
+if(this.All_testSuties_Names=="MT_Volume Buttons")
+{
+this.MT_Volume_Buttons=true;
+}
+
+if(this.All_testSuties_Names=="MT_Silent Mode Switch")
+{
+this.MT_Silent_Mode=true;
+}
+
+if(this.All_testSuties_Names=="MT_Vibration")
+{
+this.MT_Vibration=true;
+}
+
+
+if(this.All_testSuties_Names=="MT_Accelerometer")
+{
+this.MT_Accelerometer=true;
+}
+
+
+
+if(this.All_testSuties_Names=="MT_Compass")
+{
+this.MT_Compass=true;
+}
+
+
+if(this.All_testSuties_Names=="MT_Flashlight")
+{
+this.MT_Flashlight=true;
+}
+
+
+if(this.All_testSuties_Names=="MT_Camera(front)")
+{
+this.MT_Camera_front=true;
+}
+
+if(this.All_testSuties_Names=="MT_Camera(back)")
+{
+this.MT_camera_back=true;
+}
+
+
+if(this.All_testSuties_Names=="MT_MicroPhone")
+{
+this.MT_MicroPhone=true;
+}
+
+
+
+if(this.All_testSuties_Names=="MT_Speaker")
+{
+this.MT_Speaker=true;
+}
+
+
+if(this.All_testSuties_Names=="MT_Headphone Jack")
+{
+this.MT_Headphone=true;
+}
+
+
+if(this.All_testSuties_Names=="MT_USB Port")
+{
+this.MT_USB_Port=true;
+}
+
+if(this.All_testSuties_Names=="MT_USB Power")
+{
+this.MT_USB_Power=true;
+}
+
+if(this.All_testSuties_Names=="MT_Proximity Sensor")
+{
+this.MT_Proximity_Sensor=true;
+}
+
+if(this.All_testSuties_Names=="MT_Phone Call")
+{
+this.MT_Phone_Call=true;
+}
+
+
+if(this.All_testSuties_Names=="MT_Cosemetic Damage")
+{
+this.MT_Cosemetic_Damage=true;
+}
+
+
+
+if(this.All_testSuties_Names=="MT_Heavy Damage")
+{
+this.MT_Heavy_Damage=true;
+}
+
+
+
+if(this.All_testSuties_Names=="MT_Water Damage")
+{
+this.MT_Water_Damage=true;
+}
+
+
+if(this.All_testSuties_Names=="MT_SIM Card")
+{
+this.MT_Simcard=true;
+}
+
+
+if(this.All_testSuties_Names=="MT_Cellular")
+{
+this.MT_Cellular=true;
+}
+
+
+
+if(this.All_testSuties_Names=="MT_Buletooth")
+{
+this.MT_Buletooth=true;
+}
+
+
+if(this.All_testSuties_Names=="MT_WiFi")
+{
+this.MT_wifi=true;
+}
+
+
+if(this.All_testSuties_Names=="MT_GPS")
+{
+this.MT_Gps=true;
+}
+
+
+if(this.All_testSuties_Names=="MT_Activation Lock")
+{
+this.MT_Activation_lock=true;
+}
+
+
+if(this.All_testSuties_Names=="MT_Carrier Lock")
+{
+this.MT_Carrier_Lock=true;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+
+
+
+}
+
+
+}
+
+
+
+
+
+}
+else
+{
+  
+
+
+}
+
+}
 
 
 
@@ -1095,7 +1791,7 @@ this.MT_Carrier_Lock=false;
 
 
 
-addSuites()
+addTestSuites()
 {
   
 
@@ -1258,122 +1954,122 @@ if(this.AT_Warranty)
 
 if(this.MT_Touchscreen_singletouch)
 {
-  this.testcases=this.testcases+"Touchscreen(single touch)," ;
+  this.testcases=this.testcases+"MT_Touchscreen(single touch)," ;
 }
 
 if(this.MT_Touchscreen_multitouch)
 {
-  this.testcases=this.testcases+"Touchscreen(multi-touch)," ;
+  this.testcases=this.testcases+"MT_Touchscreen(multi-touch)," ;
 }
 if(this.MT_Screen_Brightness)
 {
-  this.testcases=this.testcases+"Screen Brightness," ;
+  this.testcases=this.testcases+"MT_Screen Brightness," ;
 }
 
 if(this.MT_Dead_Pixels)
 {
-  this.testcases=this.testcases+"Dead pixels," ;
+  this.testcases=this.testcases+"MT_Dead pixels," ;
 }
 
 if(this.MT_Fingerprint)
 {
-  this.testcases=this.testcases+"Fingerprint Reader," ;
+  this.testcases=this.testcases+"MT_Fingerprint Reader," ;
 }
 
 if(this.MT_Home_Button)
 {
-  this.testcases=this.testcases+"Home Button," ;
+  this.testcases=this.testcases+"MT_Home Button," ;
 }
 
 if(this.MT_Volume_Buttons)
 {
-  this.testcases=this.testcases+"Volume Buttons," ;
+  this.testcases=this.testcases+"MT_Volume Buttons," ;
 }
 
 
 if(this.MT_Silent_Mode)
 {
-  this.testcases=this.testcases+"Silent Mode Switch," ;
+  this.testcases=this.testcases+"MT_Silent Mode Switch," ;
 }
 
 if(this.MT_Vibration)
 {
-  this.testcases=this.testcases+"Vibration," ;
+  this.testcases=this.testcases+"MT_Vibration," ;
 }
 
 if(this.MT_Accelerometer)
 {
-  this.testcases=this.testcases+"Accelerometer," ;
+  this.testcases=this.testcases+"MT_Accelerometer," ;
 }
 
 if(this.MT_Compass)
 {
-  this.testcases=this.testcases+"Compass," ;
+  this.testcases=this.testcases+"MT_Compass," ;
 }
 
 if(this.MT_Flashlight)
 {
-  this.testcases=this.testcases+"Flashlight," ;
+  this.testcases=this.testcases+"MT_Flashlight," ;
 }
 
 if(this.MT_Camera_front)
 {
-  this.testcases=this.testcases+"Camera(front)," ;
+  this.testcases=this.testcases+"MT_Camera(front)," ;
 }
 
 if(this.MT_camera_back)
 {
-  this.testcases=this.testcases+"Camera(back)," ;
+  this.testcases=this.testcases+"MT_Camera(back)," ;
 }
 
 
 if(this.MT_MicroPhone)
 {
-  this.testcases=this.testcases+"MicroPhone," ;
+  this.testcases=this.testcases+"MT_MicroPhone," ;
 }
 
 
 if(this.MT_Speaker)
 {
-  this.testcases=this.testcases+"Speaker," ;
+  this.testcases=this.testcases+"MT_Speaker," ;
 }
 
 if(this.MT_Headphone)
 {
-  this.testcases=this.testcases+"Headphone Jack," ;
+  this.testcases=this.testcases+"MT_Headphone Jack," ;
 }
 
 if(this.MT_USB_Port)
 {
-  this.testcases=this.testcases+"USB Port," ;
+  this.testcases=this.testcases+"MT_USB Port," ;
 }
 
 if(this.MT_USB_Port)
 {
-  this.testcases=this.testcases+"USB Power," ;
+  this.testcases=this.testcases+"MT_USB Power," ;
 }
 
 
 if(this.MT_Proximity_Sensor)
 {
-  this.testcases=this.testcases+"Proximity Sensor," ;
+  this.testcases=this.testcases+"MT_Proximity Sensor," ;
 }
 
 if(this.MT_Phone_Call)
 {
-  this.testcases=this.testcases+"Phone Call," ;
+  this.testcases=this.testcases+"MT_Phone Call," ;
 }
 
 
 if(this.MT_Cosemetic_Damage)
 {
-  this.testcases=this.testcases+"Cosemetic Damage," ;
+  this.testcases=this.testcases+"MT_Cosemetic Damage," ;
 }
 
 
 if(this.MT_Heavy_Damage)
 {
-  this.testcases=this.testcases+"Heavy Damage," ;
+  this.testcases=this.testcases+"MT_Heavy Damage," ;
 }
 
 
@@ -1381,46 +2077,46 @@ if(this.MT_Heavy_Damage)
 
 if(this.MT_Water_Damage)
 {
-  this.testcases=this.testcases+"Water Damage," ;
+  this.testcases=this.testcases+"MT_Water Damage," ;
 }
 
 
 if(this.MT_Simcard)
 {
-  this.testcases=this.testcases+"SIM Card," ;
+  this.testcases=this.testcases+"MT_SIM Card," ;
 }
 
 
 if(this.MT_Cellular)
 {
-  this.testcases=this.testcases+"Cellular," ;
+  this.testcases=this.testcases+"MT_Cellular," ;
 }
 
 if(this.MT_Buletooth)
 {
-  this.testcases=this.testcases+"Buletooth," ;
+  this.testcases=this.testcases+"MT_Buletooth," ;
 }
 
 
 if(this.MT_wifi)
 {
-  this.testcases=this.testcases+"WiFi," ;
+  this.testcases=this.testcases+"MT_WiFi," ;
 }
 
 
 if(this.MT_Gps)
 {
-  this.testcases=this.testcases+"GPS," ;
+  this.testcases=this.testcases+"MT_GPS," ;
 }
 
 if(this.MT_Activation_lock)
 {
-  this.testcases=this.testcases+"Activation Lock," ;
+  this.testcases=this.testcases+"MT_Activation Lock," ;
 }
 
 if(this.MT_Carrier_Lock)
 {
-  this.testcases=this.testcases+"Carrier Lock" ;
+  this.testcases=this.testcases+"MT_Carrier Lock" ;
 }
 
 
@@ -1438,14 +2134,32 @@ let data1 = new URLSearchParams();
 data1.append('suitetitle',this.suite_title);
 data1.append('onlymanual',this.data_run_manualtest);
 data1.append('automatedtest',this.data_all_automated_tests);
-data1.append('technicianid',this.userid);
+
   data1.append('alltests',this.data_alltests);
   data1.append('manualtests',this.data_all_manual_tests);
   data1.append('testnames',this.testcases);
 data1.append('suiteenabled',this.data_suite_enabled);
 
-
+data1.append('testdeviceid',this.datashare.Edit_TestSuites_Detials[0].test_device_id);
  
+
+
+if( this.datashare.logindetails[0].user_type == "admin")
+{
+  
+data1.append('adminid',this.datashare.logindetails[0].admin_id);
+
+  
+}
+else
+{
+ 
+
+  data1.append('technicianid',this.datashare.logindetails[0].technician_id);
+}
+
+
+
 let body = data1.toString();
 
 console.log(body);
@@ -1601,9 +2315,11 @@ console.log("testing"+this.datashare.edit_site);
   
   }
 
-cancelClients()
+cancelSites()
 {
   
+
+
 
 }
 
@@ -1635,6 +2351,7 @@ let data1 = new URLSearchParams();
   data1.append('state',this.state);
   data1.append('zipcode',this.postalcode);
   data1.append('notes',this.note);
+  data1.append('country',this.country);
   data1.append('site_enabled',this.site_enabled);
 
 if(this.open_popup=="Edit")

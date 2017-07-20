@@ -21,7 +21,7 @@ export class EditProfileComponent{
 
 editusername:string;
 password : string;
-conformpassword:string;
+confirmpassword:string;
 userid : string;
 usertype: string;
 
@@ -52,7 +52,7 @@ else
 getEditprofileDetails()
 {
 
-if (this.password == this.conformpassword)
+if (this.password == this.confirmpassword)
 {
 	let data1 = new URLSearchParams();
   data1.append('technician_id', this.userid);
@@ -64,6 +64,7 @@ if(data.json().status == true)
 {
  
  console.log(data.json().message);
+ alert(data.json().message+" succesfully")
 
 }
 else

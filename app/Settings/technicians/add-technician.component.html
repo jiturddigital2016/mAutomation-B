@@ -21,12 +21,12 @@
   
      <table class="edit-technician-full-width" cellspacing="0">
        <tr>
-    <td>  <md-slide-toggle ngDefaultControl [(ngModel)]="technicians"
+    <td>  <md-slide-toggle ngDefaultControl value="" [(ngModel)]="technicians"
     
          [color]="color"
           [checked]="checked"
           [disabled]="disabled">
-          {{technicians}}
+         
         Manages technicias
       </md-slide-toggle></td>
     <td>  <md-slide-toggle ngDefaultControl [(ngModel)]="suites"
@@ -35,7 +35,7 @@
           [checked]="checked"
           [disabled]="disabled">
         Manages test suites
-        {{suites}}
+        
       </md-slide-toggle></td>
     </tr>
     

@@ -8,12 +8,12 @@
 
 
 	<md-input-container >
-	<input mdInput placeholder="UserName" value="" required [(ngModel)]="username" #name="ngModel">
+	<input mdInput placeholder="Username" value="" required [(ngModel)]="username" #name="ngModel">
 
 	</md-input-container><br><br>
 
 	<md-input-container>
-	<input mdInput placeholder="Password" value="" required [(ngModel)]="password" #name="ngModel" >
+	<input mdInput placeholder="Passphrase" value="" required [(ngModel)]="password" #name="ngModel" >
 	</md-input-container><br><br>
 	<div class="login-btn">
 	<button class="Login-button" md-button (click)="getloginDetails()"[disabled]="name.invalid" >Login</button>

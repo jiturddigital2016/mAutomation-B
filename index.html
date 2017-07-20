@@ -1,7 +1,36 @@
 <!DOCTYPE html>
 <html>
 <head>
- 
+ <style>
+
+.loading-wrapper-outer
+{
+    height:100vh;
+    margin:0px;
+    padding:10% auto;
+    background:#eceff1;
+    
+}
+
+
+.loading-wrapper
+{
+
+margin:auto;
+ max-width:400px;
+ padding-top:10px;
+}
+
+.loading-wrapper img
+{
+    width:90px;
+    height:90px;
+    margin:50% 0px 40px 0px;
+    left:40%;
+    position:relative;
+    
+}
+</style>
 
     <meta charset="UTF-8">
     <title>ClaraMobile</title>
@@ -32,7 +61,19 @@
 
 <!-- 3. Display the application -->
 <body>
-    <my-app>Loading...</my-app>
+    <my-app>
+
+
+    <div class="loading-wrapper-outer">
+<div class="loading-wrapper">
+ <img _ngcontent-c16="" alt="" src="./app/assets/loading-logo-img.png">
+  
+
+<md-progress-bar mode="indeterminate"></md-progress-bar>
+
+
+</div>
+</div></my-app>
 
     <!-- All of the Node.js APIs are available in this renderer process. -->
     <!-- We are using node <script>document.write(process.versions.node)</script>,
