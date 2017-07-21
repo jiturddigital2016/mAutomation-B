@@ -2,6 +2,7 @@ npm-debug.log*
 coverage
 node_modules
 typings
+biuld
 
 app/**/*.js
 app/**/*.js.map

@@ -44,7 +44,11 @@
     "reflect-metadata": "0.1.8",
     "rxjs": "^5.1.0",
     "systemjs": "0.19.39",
-    "zone.js": "^0.8.4"
+    "usb": "^1.2.0",
+    "usb-detection": "^1.4.0",
+    "zone.js": "^0.8.4",
+    "body-parser": "^1.13.3",
+    "express": "^4.13.3"
   },
   "devDependencies": {
     "@types/core-js": "0.9.34",
