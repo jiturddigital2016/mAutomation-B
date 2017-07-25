@@ -23,7 +23,7 @@ import { FunctionalityReportComponent } from './FunctionalityReport/functionalit
 import { SettingComponent } from './Settings/setting.component';
 import { AddClientComponent,TechnicianComponent,SuitesComponent,DevicesImagesComponent,SitesComponent} from './Settings/setting.component';
 
-
+import { SocketService } from './ErasureReport/socketService';
 
 @NgModule({
   declarations: [
@@ -73,7 +73,7 @@ SitesComponent
     
    
   ],
-  providers: [WebServiceComponent,DataShare],
+  providers: [WebServiceComponent,DataShare, SocketService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,9 +1,10 @@
-import { Component} from '@angular/core';
+import { Component, OnInit,OnDestroy} from '@angular/core';
 
 import { Router } from '@angular/router';
 import {Http} from '@angular/http';
 import { WebServiceComponent } from '../Webservice/app.service';
 import { DataShare } from '../DataShare/datashare';
+import { SocketService } from './socketService';
 
 import * as io from 'socket.io-client';
 
@@ -13,28 +14,43 @@ import * as io from 'socket.io-client';
   templateUrl: './app/ErasureReport/erasurereport.component.html',
   styleUrls: ['./app/ErasureReport/erasurereport.component.css']
 })
-export class ErasurereportComponent{
+export class ErasurereportComponent implements OnInit, OnDestroy{
 	
 	private url:string='http://localhost:3000/devicesList';
-	devices : Array<any> = [];
-	private socket;
-	constructor(private http: Http,private webservice: WebServiceComponent,private router: Router, private datashare:DataShare) {
+	 devices : Array<any>;
+	
+	
+	constructor(private http: Http,private webservice: WebServiceComponent,private router: Router, private datashare:DataShare, private socketService: SocketService) {
 		this.webservice.devicesList(this.url)
 		.subscribe(data => {  
 			this.devices = data.json();
 		});
+		
+	}
 
-		this.socket = io('http://localhost:3000');
-		this.socket.on('addDevice', function (device) {
+	ngOnInit() {
+		this.devices = new Array();
+	    
+		this.socketService.on('addDevice', (device: any) => {
 				
-                console.log("Added device"+JSON.stringify(device));
-            
-                //this.devices.push(device);
+                this.devices.push(device);
         	});
 
-        this.socket.on('removeDevice', function (device) {
-                console.log("Removed device"+JSON.stringify(device));
+        this.socketService.on('removeDevice', (device: any) => {
+               
+                let vendorId:number = device.vendorId;
+                let updatedDevices: Array<any>;
+                updatedDevices = this.devices.filter((el) => {
+				    return el.vendorId !== vendorId;
+				});
+				this.devices = updatedDevices;
             });
 	}
+
+	  // Let's disconnect
+	ngOnDestroy() {
+	    
+	}
+
 
 }
