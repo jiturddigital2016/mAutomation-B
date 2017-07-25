@@ -7,6 +7,24 @@ let io = require('socket.io')(http);
 
 let usbDetect = require('usb-detection');
 
+let mysql = require('mysql');
+ 
+let connection = mysql.createConnection({
+  host     : 'localhost',
+  user     : 'root',
+  password : '',
+  database : 'clara_phone_tool'
+});
+
+connection.connect(function(err){
+	if(!err) {
+	    console.log("Database is connected ... nn");    
+	} else {
+	    console.log("Error connecting database ... nn");    
+	}
+});
+
+
 app.use(bodyParser.urlencoded({
   extended: true
 }));
@@ -23,6 +41,16 @@ app.get('/devicesList', (req, res) => {
 	});
 });
 
+app.get('/login', function(req, res) {
+	connection.query('SELECT * from admin_login', function(err, rows, fields) {
+	connection.end();
+	  if (!err)
+	    console.log('The solution is: ', rows);
+	  else
+	    console.log('Error while performing Query.');
+	  });
+
+});
 
 io.on('connection', (socket) => {
   console.log('Connected');
