@@ -20,7 +20,8 @@ export const router: Routes = [
 { path: 'previousreport', component: PreviousreportComponent },
 { path: 'erasurereport', component: ErasurereportComponent },
 { path: 'functionalityreport', component: FunctionalityReportComponent },
-{ path: 'settings', component: SettingComponent }
+{ path: 'settings', component: SettingComponent },
+
   
 ];
 

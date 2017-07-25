@@ -24,6 +24,7 @@ import { SettingComponent } from './Settings/setting.component';
 import { AddClientComponent,TechnicianComponent,SuitesComponent,DevicesImagesComponent,SitesComponent} from './Settings/setting.component';
 
 
+
 @NgModule({
   declarations: [
     LoginComponent,

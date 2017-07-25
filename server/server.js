@@ -1,8 +1,11 @@
-var express = require('express'),
-	app     = express(),
-	bodyParser = require('body-parser');
-var usbDetect = require('usb-detection');
 
+'use strict';
+let app = require('express')();
+let bodyParser = require('body-parser');
+let http = require('http').Server(app);
+let io = require('socket.io')(http);
+
+let usbDetect = require('usb-detection');
 
 app.use(bodyParser.urlencoded({
   extended: true
@@ -10,7 +13,7 @@ app.use(bodyParser.urlencoded({
 
 app.use(bodyParser.json());
 
-app.get('/devicesList', function(req, res) {
+app.get('/devicesList', (req, res) => {
 	usbDetect.find(function(err, devices) {
 		if (err) {
 			return res.json(err);
@@ -20,6 +23,27 @@ app.get('/devicesList', function(req, res) {
 	});
 });
 
-app.listen(3000, function(){
-	console.log('I\'m Listening on port - 3000...');
-})
+
+io.on('connection', (socket) => {
+  console.log('Connected');
+  usbDetect.on('add', (device) => {
+    console.log('addDevice'+device);
+    io.emit('addDevice', device);   
+  });
+
+  usbDetect.on('remove', (device) => {
+    console.log('Removed'+device);
+    io.emit('removeDevice', device);   
+  });
+
+  socket.on('disconnect', function(){
+    console.log('Disconnected');
+  });
+   
+  
+});
+
+
+http.listen(3000, () => {
+  console.log('started on port 3000');
+});
