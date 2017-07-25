@@ -7,23 +7,7 @@ let io = require('socket.io')(http);
 
 let usbDetect = require('usb-detection');
 
-let mysql = require('mysql');
- 
-let connection = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'root',
-  password : '',
-  database : 'clara_phone_tool'
-});
-
-connection.connect(function(err){
-	if(!err) {
-	    console.log("Database is connected ... nn");    
-	} else {
-	    console.log("Error connecting database ... nn");    
-	}
-});
-
+var authenticateController=require('./controllers/authenticate-controller');
 
 app.use(bodyParser.urlencoded({
   extended: true
@@ -71,6 +55,10 @@ io.on('connection', (socket) => {
   
 });
 
+
+
+/* route to handle login */
+app.post('/api/authenticate', authenticateController.authenticate);
 
 http.listen(3000, () => {
   console.log('started on port 3000');
