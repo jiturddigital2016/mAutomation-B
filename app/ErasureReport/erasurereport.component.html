@@ -1,67 +1,80 @@
 <nav>
-  <dashboard-data></dashboard-data>
+<dashboard-data></dashboard-data>
 </nav>
-
-<div cdk-scrollable="" id="erasure-report" class="mat-sidenav-content">
-
+ 
+ <div cdk-scrollable="" id="erasure-report" class="mat-sidenav-content">
+ 
  <md-toolbar>
 
-  <span class="padd-left20">Erasure Report</span>
+<span class="padd-left20">Erasure Report</span>
 
 </md-toolbar>
+ 
+   <div class="erasure-report-select-bar">
+    
+ <div class="erasure-report-select-bar-client">  </div>
+<md-select  placeholder="Client" [(ngModel)]="clientname">
+  <md-option *ngFor="let clients of client_list" value="clients.name" >
 
-<div class="erasure-report-select-bar">
+<button md-button (click)="displayclientdetails($event, clients)">{{ clients.name }}</button>
+  </md-option>
+   
+</md-select>
 
-
-  <md-select placeholder="Client Acme">
-    <md-option>
-
-      <span>Serial: DX3N40CSFF9Y<br>
-        Serial: DX3N40CSFF9Y<br>
-        Serial: DX3N40CSFF9Y<br>
-        Serial: DX3N40CSFF9Y</span>
+ <!-- <md-select placeholder="Drink" [color]="drinksTheme" [(ngModel)]="currentDrink" [required]="drinksRequired"
+      [floatPlaceholder]="floatPlaceholder" #drinkControl="ngModel">
+     
+      <md-option *ngFor="let drink of drinks" [value]="drink.value">
+        {{ drink.viewValue }}
       </md-option>
+    </md-select> -->
 
-    </md-select>
+</div>
+ 
+  <div class="main-content-box">
+ 
 
+ <div class="erasure-report-bar">
+ 
+ <md-list class="demo-list mat-elevation-z2" *ngFor="let erasurerreport of erasurereport_data" >
+    <md-list-item>
+      <h4 md-line>{{erasurerreport.report_name}}</h4>
+    
+   <div class="type-material-button">
+   <button md-icon-button><md-icon>power_settings_new</md-icon></button>
+   </div>
+    
+    </md-list-item>
+    <md-list-item>
+      <span md-line>Serial: {{erasurerreport.serial}}</span>
+    </md-list-item>
+    <md-list-item>
+       <span md-line>iOS Version: {{erasurerreport.os_version}}</span>
+    </md-list-item>
+   <md-list-item>
+       <span md-line>IMEI:  {{erasurerreport.imei}}</span>
+    </md-list-item>
+  </md-list>
+  
+  
+  
+
+ 
+  
 
 
   </div>
-
-  <div class="main-content-box">
-
-    <div class="erasure-report-bar">
-
-      <md-list class="demo-list mat-elevation-z2" *ngFor="let device of devices">
-          <md-list-item>
-            <p>{{device.deviceName}}</p>
-
-            <div class="type-material-button">
-              <button md-icon-button><md-icon>{{device.manufacturer}}</md-icon></button>
-            </div>
-
-          </md-list-item>
-          <md-list-item>
-            <span md-line>Serial: {{device.deviceAddress}}</span>
-          </md-list-item>
-          <md-list-item>
-           <span md-line>iOS Version: 10.3.1</span>
-          </md-list-item>
-          <md-list-item>
-            <span md-line>IMEI:012840008757374</span>
-          </md-list-item>
-      </md-list>
-    </div>
+  
 
   </div>
 <div class="docs-footer">
+ 
+<md-toolbar>
+ <span class="flex-spacer"></span> 
+<button md-raised-button class="button-spacer but-medium-blue">ABORT</button>
+<button md-raised-button class="button-spacer but-white">START</button>
 
-  <md-toolbar>
-   <span class="flex-spacer"></span> 
-   <button md-raised-button class="button-spacer but-medium-blue">ABORT</button>
-   <button md-raised-button class="button-spacer but-white">START</button>
-
- </md-toolbar>
-</div>
-
-</div>
+</md-toolbar>
+  </div>
+  
+    </div>
