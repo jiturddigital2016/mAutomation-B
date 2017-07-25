@@ -54,7 +54,6 @@ public Technician_Edit_API: string ='http://aryvartdev.com/clara_phonetool/api/T
 
 public Display_Testsuites_API: string ='http://aryvartdev.com/clara_phonetool/api/Test/testsuite';
 
-public Display_Deviceimages_API: string ='http://aryvartdev.com/clara_phonetool/api/Deviceimage/deviceimagelist';
 
     public constructor() { }
  

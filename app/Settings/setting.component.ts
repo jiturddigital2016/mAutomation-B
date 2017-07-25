@@ -29,33 +29,10 @@ Site:Array<any>;
 compare:String;
 userid:string;
 usertype:string;
-deviceimages_List:Array<any>
-
 
 public edited = false;
 
 site:boolean=true;
-
-
-
-
-
-
-
-tabs = [
-  {name: 'TEST SUITES'},
-  {name: 'DEVICE IMAGES'},
-  {name: 'CLIENTS'},
-   {name: 'TECHNICIANS'},
-   { name: 'SITES'},
-  { name: 'ABOUT'}
-
-
-];
-
-
-
-
 
 
 constructor(private http: Http,public dialog: MdDialog,private datashare:DataShare,private webservice: WebServiceComponent) {
@@ -65,15 +42,6 @@ constructor(private http: Http,public dialog: MdDialog,private datashare:DataSha
     { name: 'All Automated Tests' }
     
     ];
-
-
-
-
-
-
-
-
-
 
 this.usertype=this.datashare.logindetails[0].user_type;
 
@@ -96,11 +64,6 @@ else
 
 ngOnInit()
 {
-
-
-
-
-
  this.http.get(this.datashare.Display_Clientdetails_API)
       .subscribe(data => {
         console.log(data.json().Client); 
@@ -130,7 +93,7 @@ this.Testsuites_webservice_call();
 
 
 
-this.Deviceimages_webservice_call();
+
 
 
 
@@ -138,10 +101,6 @@ this.Deviceimages_webservice_call();
 
 
 }
-
-
-
-
 
 Testsuites_webservice_call()
 {
@@ -153,13 +112,13 @@ if(this.usertype == "admin")
 {
   
 data1.append('adminid',this.userid); 
-
+  console.log("**************"); 
 }
 else
 {
   
 data1.append('technicianid',this.userid);
- 
+  console.log("$$$$$$$$$$$$$"); 
 }
 
 
@@ -172,49 +131,6 @@ console.log(body);
  console.log(data.json());
 this.datashare.edit_testsuites=data.json().status;
 this.datashare.Edit_TestSuites_Detials=data.json().testsuitedata;
-
-  err =>
-  {
-alert("error getting")
-
-  }
-
-});
-
-
-
-
-}
-
-
-Deviceimages_webservice_call()
-{
-  
-let data1 = new URLSearchParams();
-  
-  
-if(this.usertype == "admin")
-{
-  
-data1.append('adminid',this.userid); 
-
-}
-else
-{
-  
-data1.append('technicianid',this.userid);
- 
-}
-
-
-let body = data1.toString();
-
-console.log(body);
-  this.webservice.getuser(body, this.datashare.Display_Deviceimages_API).subscribe(data =>{
-
- this.deviceimages_List=data.json().deviceimages;
- console.log(this.deviceimages_List);
-
 
   err =>
   {
@@ -390,24 +306,6 @@ DeviceimageDialog() {
 
 
 
-AboutDialog() {
-    this.dialog.open(AboutComponent);
-
-
-
-
-  }
-
-
-
-
-
-
-
-
-
-
-
 Edit_Site_Details($event, site)
 {
 
@@ -529,7 +427,7 @@ url:string;
 
 if(this.datashare.edit_client=="Edit")
 {
-  console.log("edit client details"+this.datashare.edit_client);
+  console.log("venkatesh"+this.datashare.edit_client);
 
 this.name=this.datashare.Edit_Client_Detials.name;
 this.phone=this.datashare.Edit_Client_Detials.phone;
@@ -826,7 +724,7 @@ this.poweroff =true;
 
 
 
-console.log("Role"+this.role);
+console.log("venaktesh"+this.role);
 
 
 }
@@ -1221,7 +1119,7 @@ console.log(this.All_testSuties_Names_count);
 for(var i=0;i<this.All_testSuties_Names_count;i++)
 {
   
-
+console.log("venkatesh"+i);
 
 this.All_testSuties_Names=this.All_testSuties_Names_data[i];
 
@@ -1781,7 +1679,7 @@ this.AT_Simcard=true;
 this.AT_Activation_Lock=true;
 this.AT_Carrier_Lock=true;
 this.AT_Warranty=true;
-  
+  console.log("venkatesh");
 }
 
 
@@ -1805,7 +1703,7 @@ this.AT_Simcard=false;
 this.AT_Activation_Lock=false;
 this.AT_Carrier_Lock=false;
 this.AT_Warranty=false;
- 
+  console.log("venkatesh");
 }
 
 
@@ -2368,7 +2266,7 @@ device:boolean = true;
 
 if(this.datashare.edit_site=="Edit")
 {
-  console.log("edit client details"+this.datashare.edit_client);
+  console.log("venkatesh"+this.datashare.edit_client);
 
 this.name=this.datashare.Edit_Site_Detials.name;
 this.phone=this.datashare.Edit_Site_Detials.phone;
@@ -2502,58 +2400,6 @@ alert("error getting")
 
 
 
-
-@Component({
-  selector: 'about-component',
-  templateUrl: './app/Settings/about/about.component.html',
-    styleUrls: ['./app/Settings/about/about.component.css']
-})
-
-
-export class AboutComponent {
-
-
-opensourcelicense:Array<any>;
-
-
-  constructor(public dialogRef: MdDialogRef<AboutComponent>,public dialog: MdDialog) {
-
-this.opensourcelicense=[{name:'Angular'},{name:'ngMaterial'},{name:'Material Icons'},{name:'Electron'},{name:'Angular'},{name:'ngMaterial'},{name:'Material Icons'},{name:'Electron'},{name:'Angular'},{name:'ngMaterial'},{name:'Material Icons'},{name:'Electron'}];
-
-
-
-  }
-
-LicenseDialog() {
-
-
-    this.dialog.open(LicenseComponent);
-
-  }
-
-
-}
-
-
-
-
-@Component({
-  selector: 'license-component',
-  templateUrl: './app/Settings/about/license/license.component.html',
-    styleUrls: ['./app/Settings/about/license/license.component.css']
-})
-
-
-export class LicenseComponent {
-
-
-
-
-
-  constructor(public dialogRef: MdDialogRef<LicenseComponent>) {
-
-  }
-}
 
 
 

@@ -14,8 +14,8 @@
 </md-toolbar>
 
  <div class="erasure-report-select-bar">
-    
-<!-- <div class="erasure-report-select-bar-client"> Client </div>
+		
+
 <md-select placeholder="Client Acme">
   <md-option>
 
@@ -25,27 +25,15 @@ Serial: DX3N40CSFF9Y<br>
 Serial: DX3N40CSFF9Y</span>
   </md-option>
    
-</md-select> -->
-
-
-<md-select  placeholder="Client" [(ngModel)]="clientname">
-  <md-option *ngFor="let clients of client_list" [value]="clients.name" >
-
-<button md-button (click)="displayclientdetails($event, clients)">{{ clients.name }}</button>
-  </md-option>
-   
 </md-select>
 
+<md-select placeholder="Client Acme">
+  <md-option>
 
-
-
-
-
-
-<md-select  placeholder="Client" [(ngModel)]="clientname" >
-  <md-option *ngFor="let clients of client_list" [value]="clients.name" >
-
-<button md-button (click)="displayclientdetails($event, clients)">{{ clients.name }}</button>
+<span>Serial: DX3N40CSFF9Y<br>
+Serial: DX3N40CSFF9Y<br>
+Serial: DX3N40CSFF9Y<br>
+Serial: DX3N40CSFF9Y</span>
   </md-option>
    
 </md-select>
@@ -58,25 +46,59 @@ Serial: DX3N40CSFF9Y</span>
  
  <div class="erasure-report-bar">
  
-
-
-<md-list class="demo-list mat-elevation-z2" *ngFor="let functionalityreport of Functionalityreport_data" >
+ <md-list class="demo-list mat-elevation-z2">
     <md-list-item>
-      <h4 md-line>{{functionalityreport.report_name}}</h4>
-    
-   <div class="type-material-button">
-   <button md-icon-button><md-icon>power_settings_new</md-icon></button>
-   </div>
-    
+      <h4 md-line>Apple iPhone 6</h4>
+	  
+	 <div class="type-material-button">
+	 <button md-icon-button><md-icon>power_settings_new</md-icon></button>
+	 </div>
+	  
     </md-list-item>
     <md-list-item>
-      <span md-line>Serial: {{functionalityreport.serial}}</span>
+      <span md-line>Serial: DX3N40CSFF9Y</span>
     </md-list-item>
     <md-list-item>
-       <span md-line>iOS Version: {{functionalityreport.os_version}}</span>
+       <span md-line>iOS Version: 10.3.1</span>
     </md-list-item>
-   <md-list-item>
-       <span md-line>IMEI:  {{functionalityreport.imei}}</span>
+	 <md-list-item>
+       <span md-line>IMEI:012840008757374</span>
+    </md-list-item>
+  </md-list>
+  
+   <md-list class="demo-list mat-elevation-z2">
+    <md-list-item>
+      <h4 md-line>Apple iPhone 6</h4>
+	  <div class="type-material-button">
+	 <button md-icon-button><md-icon>power_settings_new</md-icon></button>
+	 </div>
+    </md-list-item>
+    <md-list-item>
+      <span md-line>Serial: DX3N40CSFF9Y</span>
+    </md-list-item>
+    <md-list-item>
+       <span md-line>iOS Version: 10.3.1</span>
+    </md-list-item>
+	 <md-list-item>
+       <span md-line>IMEI:012840008757374</span>
+    </md-list-item>
+  </md-list>
+  
+   <md-list class="demo-list mat-elevation-z2">
+    <md-list-item>
+      <h4 md-line>Apple iPhone 6</h4>
+	  <div class="type-material-button">
+	 <button md-icon-button><md-icon>power_settings_new</md-icon></button>
+	 </div>
+    </md-list-item>
+    <md-list-item>
+      <span md-line>Serial: DX3N40CSFF9Y</span>
+    </md-list-item>
+    <md-list-item>
+       <span md-line>iOS Version: 10.3.1</span>
+    </md-list-item>
+	 <md-list-item>
+       <span md-line>IMEI:012840008757374</span>
     </md-list-item>
   </md-list>
   
@@ -85,13 +107,6 @@ Serial: DX3N40CSFF9Y</span>
   
 
    </div>
-
- 
-
-
-
-
-
    
    <div class="docs-footer">
  

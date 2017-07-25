@@ -21,7 +21,7 @@ import { PreviousreportComponent } from './PreviousReport/previousreport.compone
 import { ErasurereportComponent } from './ErasureReport/erasurereport.component';
 import { FunctionalityReportComponent } from './FunctionalityReport/functionalityreport.component';
 import { SettingComponent } from './Settings/setting.component';
-import { AddClientComponent,TechnicianComponent,SuitesComponent,DevicesImagesComponent,SitesComponent,AboutComponent,LicenseComponent} from './Settings/setting.component';
+import { AddClientComponent,TechnicianComponent,SuitesComponent,DevicesImagesComponent,SitesComponent} from './Settings/setting.component';
 
 import { SocketService } from './ErasureReport/socketService';
 
@@ -40,9 +40,7 @@ import { SocketService } from './ErasureReport/socketService';
   TechnicianComponent,
   SuitesComponent,
   DevicesImagesComponent,
-  SitesComponent,
-  AboutComponent,
-  LicenseComponent
+  SitesComponent
     
     
   ],
@@ -52,9 +50,7 @@ AddClientComponent,
 TechnicianComponent,
 SuitesComponent,
 DevicesImagesComponent,
-SitesComponent,
-AboutComponent,
-LicenseComponent
+SitesComponent
 
 
 
