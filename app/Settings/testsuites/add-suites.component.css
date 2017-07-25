@@ -11,6 +11,7 @@ width:750px;
 {
 
 overflow-y: scroll;
+max-height:500px;
 }
 .edit-test-suite-full-width {
   width: 100%;

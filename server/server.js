@@ -7,6 +7,8 @@ let io = require('socket.io')(http);
 
 let usbDetect = require('usb-detection');
 
+var authenticateController=require('./controllers/authenticate-controller');
+
 app.use(bodyParser.urlencoded({
   extended: true
 }));
@@ -23,6 +25,16 @@ app.get('/devicesList', (req, res) => {
 	});
 });
 
+app.get('/login', function(req, res) {
+	connection.query('SELECT * from admin_login', function(err, rows, fields) {
+	connection.end();
+	  if (!err)
+	    console.log('The solution is: ', rows);
+	  else
+	    console.log('Error while performing Query.');
+	  });
+
+});
 
 io.on('connection', (socket) => {
   console.log('Connected');
@@ -43,6 +55,10 @@ io.on('connection', (socket) => {
   
 });
 
+
+
+/* route to handle login */
+app.post('/api/authenticate', authenticateController.authenticate);
 
 http.listen(3000, () => {
   console.log('started on port 3000');

@@ -31,16 +31,19 @@ padding:0px 0px 0px 0px;
 .main-content-box
 {
 	padding:30px 20px 0px 20px;
+	min-height:562px;
+	overflow-y:scroll;
 }
 
 
 .demo-list {
     margin: 24px 0;
     background: #fff;
-    width:32%; 
+    width:30%; 
 	margin-right:10px;
 	max-height:200px;
 	overflow-y:auto;
+	float:left;
 }
 
 
@@ -56,12 +59,12 @@ padding:0px 0px 0px 0px;
 
 .erasure-report-select-bar
 {
-    display: flex;
+ display: flex;
     box-sizing: border-box;
     width: 100%;
     padding: 0 0px;
     flex-direction:row;
-	height:60px;
+	height:75px;
 	background:#333;
 }
 
@@ -73,7 +76,7 @@ padding:0px 0px 0px 0px;
 
 .erasure-report-bar
 {
-    display: flex;
+   
     box-sizing: border-box;
     width: 100%;
     padding: 0 0px 0px 13px;
@@ -119,7 +122,7 @@ padding:0px 0px 0px 0px;
 	
 	#erasure-report .mat-select
     {
-	padding-top: 13px!important;
+padding-top:28px!important;
     width: 97% !important;
     margin-left: 10px!important;
 	
@@ -129,7 +132,7 @@ padding:0px 0px 0px 0px;
 	{
 		font-size:14px !important;
 		
-		 padding: 3px 10px 20px 10px !important;
+		 padding: 0px 10px 0px 10px !important;
 		 height: 100% !important;
 		 background:#616161 !important;
 			color:#fff;
@@ -202,6 +205,24 @@ padding:0px 0px 0px 0px;
 	
 }
 
+.erasure-report-select-bar-client
+{
+	display:block;
+	padding:5px 5px;
+	color:#fff !important;
+	font-family: Roboto Regular, sans-serif;
+	position:absolute;
+	    left: 6px;
+}
 
+.erasure-report-select-bar-client1
+{
+	display:block;
+	padding:5px 5px;
+	left:51%;
+	color:#fff !important;
+	font-family: Roboto Regular, sans-serif;
+	position:absolute;
+}
 
 /* Erasure report*/
