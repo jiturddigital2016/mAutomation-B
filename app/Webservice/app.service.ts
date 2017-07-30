@@ -47,6 +47,20 @@ var headers = new Headers();
 
   }
 
+  installApk(url:string)
+  {
+    var headers = new Headers();
+            headers.append('Content-Type', 'application/x-www-form-urlencoded');
+            
+          return this.http.get(
+                url, 
+                {headers:headers}
+            )
+    .map(res => res)
+    .catch(this.handleError);
+
+  }
+
 
   private handleError(err) {
     let errMessage: string;

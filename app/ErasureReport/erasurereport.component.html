@@ -34,22 +34,24 @@
 
       <md-list class="demo-list mat-elevation-z2" *ngFor="let device of devices">
           <md-list-item>
-            <p>{{device.deviceName}}</p>
+            <span md-line>Id: {{device.id}}</span>
 
-            <div class="type-material-button">
-              <button md-icon-button><md-icon>{{device.manufacturer}}</md-icon></button>
-            </div>
+            <!-- <div class="type-material-button">
+              <button md-icon-button><md-icon>{{device.type}}</md-icon></button>
+            </div> -->
 
           </md-list-item>
-          <md-list-item>
-            <span md-line>Serial: {{device.deviceAddress}}</span>
+         <md-list-item>
+            <span md-line>Serial: {{device.type}}</span>
           </md-list-item>
+        
           <md-list-item>
-           <span md-line>iOS Version: 10.3.1</span>
+           <button class="button-spacer but-medium-blue" id={{device.id}} md-button (click)="installApk()">Install APK</button>
           </md-list-item>
+        <!--
           <md-list-item>
             <span md-line>IMEI:012840008757374</span>
-          </md-list-item>
+          </md-list-item> -->
       </md-list>
     </div>
 
