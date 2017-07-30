@@ -6,7 +6,6 @@ let http = require('http').Server(app);
 let io = require('socket.io')(http);
 
 let usbDetect = require('usb-detection');
-
 var authenticateController=require('./controllers/authenticate-controller');
 
 app.use(bodyParser.urlencoded({
@@ -54,8 +53,6 @@ io.on('connection', (socket) => {
    
   
 });
-
-
 
 /* route to handle login */
 app.post('/api/authenticate', authenticateController.authenticate);

@@ -32,7 +32,6 @@ export class ErasurereportComponent implements OnInit, OnDestroy{
 		this.devices = new Array();
 	    
 		this.socketService.on('addDevice', (device: any) => {
-				
                 this.devices.push(device);
         	});
 
