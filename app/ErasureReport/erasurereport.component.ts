@@ -17,7 +17,8 @@ import * as io from 'socket.io-client';
 export class ErasurereportComponent implements OnInit, OnDestroy{
 	
 	private url:string='http://localhost:3000/devicesList';
-	 devices : Array<any>;
+	private installApkUrl:string='http://localhost:3000/installApk';
+	devices : Array<any>;
 	
 	
 	constructor(private http: Http,private webservice: WebServiceComponent,private router: Router, private datashare:DataShare, private socketService: SocketService) {
@@ -50,6 +51,13 @@ export class ErasurereportComponent implements OnInit, OnDestroy{
 	  // Let's disconnect
 	ngOnDestroy() {
 	    
+	}
+
+	installApk(event) {
+		this.webservice.installApk(this.installApkUrl)
+		.subscribe(data => {  
+			this.devices = data.json();
+		});
 	}
 
 

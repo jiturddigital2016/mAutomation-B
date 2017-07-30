@@ -1,4 +1,3 @@
-
 'use strict';
 let app = require('express')();
 let bodyParser = require('body-parser');
@@ -9,33 +8,51 @@ let usbDetect = require('usb-detection');
 
 var authenticateController=require('./controllers/authenticate-controller');
 
+var fs = require('fs');
+var adb = require('adbkit');
+var client = adb.createClient();
+var Promise = require('bluebird');
+var readline = require('readline');
+ 
 app.use(bodyParser.urlencoded({
   extended: true
 }));
 
 app.use(bodyParser.json());
 
+
+var apk = 'Clara3scr.apk';
 app.get('/devicesList', (req, res) => {
-	usbDetect.find(function(err, devices) {
-		if (err) {
-			return res.json(err);
-		}
+	
+	client.listDevices().then(function(devices) { 
 		console.log(devices);
-		res.json(devices);	
-	});
+		res.json(devices);
+	})
+
+
+ // client.listDevices()
+ //      .then(function(devices) {
+ //        return Promise.map(devices, function() {
+ //          console.log(devices)
+ //          return devices;
+ //        })
+ //      })
+ //      .then(function(id) {
+ //        if((JSON.stringify(id)) == '[]')
+ //        {
+ //            console.log("Please enable Usb Debugging option from your Android device");
+ //        }
+ //      })
+ //      .catch(function(err) {
+ //        console.error('Something went wrong:', err.stack)
+ //      });
+
+
 });
 
-app.get('/login', function(req, res) {
-	connection.query('SELECT * from admin_login', function(err, rows, fields) {
-	connection.end();
-	  if (!err)
-	    console.log('The solution is: ', rows);
-	  else
-	    console.log('Error while performing Query.');
-	  });
 
-});
 
+// socket program to add / remove devices
 io.on('connection', (socket) => {
   console.log('Connected');
   usbDetect.on('add', (device) => {
@@ -59,6 +76,26 @@ io.on('connection', (socket) => {
 
 /* route to handle login */
 app.post('/api/authenticate', authenticateController.authenticate);
+
+app.get('/installApk', (req, res) => {
+	var status = false;
+	client.listDevices()
+	  .then(function(devices) {
+	    return Promise.map(devices, function(device) {
+	      return client.install(device.id, apk)
+	    })
+	  })
+	  .then(function() {
+	    status = true;
+	    res.json(status);
+	  })
+	  .catch(function(err) {
+	    res.json(status);
+	  })
+})
+
+
+
 
 http.listen(3000, () => {
   console.log('started on port 3000');
