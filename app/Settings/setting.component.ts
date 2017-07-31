@@ -29,10 +29,33 @@ Site:Array<any>;
 compare:String;
 userid:string;
 usertype:string;
+deviceimages_List:Array<any>
+
 
 public edited = false;
 
 site:boolean=true;
+
+
+
+
+
+
+
+tabs = [
+  {name: 'TEST SUITES'},
+  {name: 'DEVICE IMAGES'},
+  {name: 'CLIENTS'},
+   {name: 'TECHNICIANS'},
+   { name: 'SITES'},
+  { name: 'ABOUT'}
+
+
+];
+
+
+
+
 
 
 constructor(private http: Http,public dialog: MdDialog,private datashare:DataShare,private webservice: WebServiceComponent) {
@@ -42,6 +65,15 @@ constructor(private http: Http,public dialog: MdDialog,private datashare:DataSha
     { name: 'All Automated Tests' }
     
     ];
+
+
+
+
+
+
+
+
+
 
 this.usertype=this.datashare.logindetails[0].user_type;
 
@@ -64,6 +96,11 @@ else
 
 ngOnInit()
 {
+
+
+
+
+
  this.http.get(this.datashare.Display_Clientdetails_API)
       .subscribe(data => {
         console.log(data.json().Client); 
@@ -93,7 +130,7 @@ this.Testsuites_webservice_call();
 
 
 
-
+this.Deviceimages_webservice_call();
 
 
 
@@ -101,6 +138,10 @@ this.Testsuites_webservice_call();
 
 
 }
+
+
+
+
 
 Testsuites_webservice_call()
 {
@@ -111,14 +152,14 @@ let data1 = new URLSearchParams();
 if(this.usertype == "admin")
 {
   
-data1.append('adminid',this.userid); 
-  console.log("**************"); 
+data1.append('admin_id',this.userid); 
+
 }
 else
 {
   
-data1.append('technicianid',this.userid);
-  console.log("$$$$$$$$$$$$$"); 
+data1.append('technician_id',this.userid);
+ 
 }
 
 
@@ -140,6 +181,60 @@ alert("error getting")
 
 });
 
+
+
+
+}
+
+
+Deviceimages_webservice_call()
+{
+
+
+this.http.get(this.datashare.Display_Deviceimages_API)
+      .subscribe(data => {
+        this.deviceimages_List=data.json().device_images_details;
+ console.log(this.deviceimages_List);
+       
+      });
+
+
+
+  /*
+let data1 = new URLSearchParams();
+  
+  
+if(this.usertype == "admin")
+{
+  
+data1.append('adminid',this.userid); 
+
+}
+else
+{
+  
+data1.append('technicianid',this.userid);
+ 
+}
+
+
+let body = data1.toString();
+
+console.log(body);
+  this.webservice.getuser(body, this.datashare.Display_Deviceimages_API).subscribe(data =>{
+
+ this.deviceimages_List=data.json().device_images_details;
+ console.log(this.deviceimages_List);
+
+
+  err =>
+  {
+alert("error getting")
+
+  }
+
+});
+*/
 
 
 
@@ -306,6 +401,24 @@ DeviceimageDialog() {
 
 
 
+AboutDialog() {
+    this.dialog.open(AboutComponent);
+
+
+
+
+  }
+
+
+
+
+
+
+
+
+
+
+
 Edit_Site_Details($event, site)
 {
 
@@ -427,7 +540,7 @@ url:string;
 
 if(this.datashare.edit_client=="Edit")
 {
-  console.log("venkatesh"+this.datashare.edit_client);
+  console.log("edit client details"+this.datashare.edit_client);
 
 this.name=this.datashare.Edit_Client_Detials.name;
 this.phone=this.datashare.Edit_Client_Detials.phone;
@@ -536,7 +649,7 @@ let data1 = new URLSearchParams();
 
 if(this.open_popup == "Edit")
 {
-  data1.append('clientid',this.client_id);
+  data1.append('client_id',this.client_id);
 }
 
 
@@ -724,7 +837,7 @@ this.poweroff =true;
 
 
 
-console.log("venaktesh"+this.role);
+console.log("Role"+this.role);
 
 
 }
@@ -859,7 +972,7 @@ data1.append('username',this.username);
 if(this.datashare.edit_tecnician=="Edit")
 {
   
-data1.append('technicainid',this.technician_id);
+data1.append('technician_id',this.technician_id);
 
 this.url=this.datashare.Technician_Edit_API;
 
@@ -1119,7 +1232,7 @@ console.log(this.All_testSuties_Names_count);
 for(var i=0;i<this.All_testSuties_Names_count;i++)
 {
   
-console.log("venkatesh"+i);
+
 
 this.All_testSuties_Names=this.All_testSuties_Names_data[i];
 
@@ -1679,7 +1792,7 @@ this.AT_Simcard=true;
 this.AT_Activation_Lock=true;
 this.AT_Carrier_Lock=true;
 this.AT_Warranty=true;
-  console.log("venkatesh");
+  
 }
 
 
@@ -1703,7 +1816,7 @@ this.AT_Simcard=false;
 this.AT_Activation_Lock=false;
 this.AT_Carrier_Lock=false;
 this.AT_Warranty=false;
-  console.log("venkatesh");
+ 
 }
 
 
@@ -2131,23 +2244,23 @@ if(this.MT_Carrier_Lock)
 let data1 = new URLSearchParams();
 
 
-data1.append('suitetitle',this.suite_title);
-data1.append('onlymanual',this.data_run_manualtest);
-data1.append('automatedtest',this.data_all_automated_tests);
+data1.append('suite_title',this.suite_title);
+data1.append('only_manual',this.data_run_manualtest);
+data1.append('automated_tests',this.data_all_automated_tests);
 
-  data1.append('alltests',this.data_alltests);
-  data1.append('manualtests',this.data_all_manual_tests);
-  data1.append('testnames',this.testcases);
-data1.append('suiteenabled',this.data_suite_enabled);
+  data1.append('all_tests',this.data_alltests);
+  data1.append('manual_tests',this.data_all_manual_tests);
+  data1.append('test_names',this.testcases);
+data1.append('suite_enabled',this.data_suite_enabled);
 
-data1.append('testdeviceid',this.datashare.Edit_TestSuites_Detials[0].test_device_id);
+data1.append('test_device_id',this.datashare.Edit_TestSuites_Detials[0].test_device_id);
  
 
 
 if( this.datashare.logindetails[0].user_type == "admin")
 {
   
-data1.append('adminid',this.datashare.logindetails[0].admin_id);
+data1.append('admin_id',this.datashare.logindetails[0].admin_id);
 
   
 }
@@ -2155,7 +2268,7 @@ else
 {
  
 
-  data1.append('technicianid',this.datashare.logindetails[0].technician_id);
+  data1.append('technician_id',this.datashare.logindetails[0].technician_id);
 }
 
 
@@ -2266,7 +2379,7 @@ device:boolean = true;
 
 if(this.datashare.edit_site=="Edit")
 {
-  console.log("venkatesh"+this.datashare.edit_client);
+  console.log("edit client details"+this.datashare.edit_client);
 
 this.name=this.datashare.Edit_Site_Detials.name;
 this.phone=this.datashare.Edit_Site_Detials.phone;
@@ -2357,7 +2470,7 @@ let data1 = new URLSearchParams();
 if(this.open_popup=="Edit")
 {
   this.url=this.datashare.Site_Edit_API
-  data1.append('siteid',this.site_id);
+  data1.append('site_id',this.site_id);
 }else
 {
   this.url=this.datashare.Sites_Register_API
@@ -2400,6 +2513,58 @@ alert("error getting")
 
 
 
+
+@Component({
+  selector: 'about-component',
+  templateUrl: './app/Settings/about/about.component.html',
+    styleUrls: ['./app/Settings/about/about.component.css']
+})
+
+
+export class AboutComponent {
+
+
+opensourcelicense:Array<any>;
+
+
+  constructor(public dialogRef: MdDialogRef<AboutComponent>,public dialog: MdDialog) {
+
+this.opensourcelicense=[{name:'Angular'},{name:'ngMaterial'},{name:'Material Icons'},{name:'Electron'},{name:'Angular'},{name:'ngMaterial'},{name:'Material Icons'},{name:'Electron'},{name:'Angular'},{name:'ngMaterial'},{name:'Material Icons'},{name:'Electron'}];
+
+
+
+  }
+
+LicenseDialog() {
+
+
+    this.dialog.open(LicenseComponent);
+
+  }
+
+
+}
+
+
+
+
+@Component({
+  selector: 'license-component',
+  templateUrl: './app/Settings/about/license/license.component.html',
+    styleUrls: ['./app/Settings/about/license/license.component.css']
+})
+
+
+export class LicenseComponent {
+
+
+
+
+
+  constructor(public dialogRef: MdDialogRef<LicenseComponent>) {
+
+  }
+}
 
 
 

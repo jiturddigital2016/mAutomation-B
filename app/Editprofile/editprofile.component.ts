@@ -25,25 +25,17 @@ confirmpassword:string;
 userid : string;
 usertype: string;
 
-private url:string='http://192.168.0.62/clara_phonetool/api/Technician/changepassword';
+
 
  constructor(private http: Http,private webservice: WebServiceComponent,private datashare:DataShare) {
 
 this.editusername=this.datashare.logindetails[0].username;
 this.usertype=this.datashare.logindetails[0].user_type;
+console.log(this.usertype);
+console.log(this.editusername);
+console.log(this.datashare.logindetails[0].admin_id);
 
-if(this.usertype == "admin")
-{
-  this.userid=this.datashare.logindetails[0].admin_id;
 
-  
-}
-else
-{
-  this.userid=this.datashare.logindetails[0].technician_id;
-
-  
-}
 
 
 
@@ -55,16 +47,33 @@ getEditprofileDetails()
 if (this.password == this.confirmpassword)
 {
 	let data1 = new URLSearchParams();
-  data1.append('technician_id', this.userid);
+
+if(this.usertype == "admin")
+{
+  
+  data1.append('admin_id', this.datashare.logindetails[0].admin_id);
+
+  
+}
+else
+{
+  
+
+   data1.append('technician_id', this.datashare.logindetails[0].technician_id);
+}
+
+
+  
   data1.append('password',this.password);
 let body = data1.toString();
+console.log(body);
   this.webservice.getuser(body, this.datashare.Changepassword_API).subscribe(data =>{
 
 if(data.json().status == true)
 {
  
  console.log(data.json().message);
- alert(data.json().message+" succesfully")
+ alert(data.json().message)
 
 }
 else

@@ -1,0 +1,52 @@
+/** No CSS for this example */
+
+.mat-select:focus:not(.mat-select-disabled).mat-primary .mat-select-arrow,
+.mat-select:focus:not(.mat-select-disabled).mat-primary .mat-select-trigger {
+  color:#fff;
+}
+
+.mat-select-arrow,
+.mat-select-disabled .mat-select-value,
+.mat-select-trigger {
+  color:#fff;
+  
+}
+
+.mat-select-panel
+{
+	min-width:300px !important;
+}
+
+.mat-select-panel:focus:not(.mat-select-disabled).mat-primary
+{
+	min-width:300px !important;
+}
+
+
+.login .mat-input-container
+{
+	display:block !important;
+}
+
+
+.primary-color {
+ color:#2196F3 !important;
+  }
+  
+.mat-select:focus:not(.mat-select-disabled).mat-primary .mat-select-underline
+  {
+	  background-color:#fff !important;
+  }
+  
+  .mat-select-underline
+  {
+	  background-color:#fff !important;
+  }
+  
+  
+  .mat-fab.mat-accent, .mat-mini-fab.mat-accent, .mat-raised-button.mat-accent
+  {
+	  background-color:#2196F3 !important;
+  }
+  
+  

@@ -125,7 +125,7 @@ margin:auto;
 {
     width:194px;
     height:194px;
-    margin:0px 0px 25px 115px;
+    margin:28% 0px 25px 115px;
 }
 
 .session-wrapper-outer
@@ -139,8 +139,8 @@ margin:auto;
 
 .Login-button
 {
-  color: blue;
-  background-color: lightblue;
+  color:#2196F3 !important;
+  background-color:none;
 }
 .login-btn {text-align: right;}
 .center

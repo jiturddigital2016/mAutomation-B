@@ -3,7 +3,7 @@ var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
   password : '',
-  database : 'clara_phone_tool'
+  database : 'phonetool'
 });
 connection.connect(function(err){
 if(!err) {

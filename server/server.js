@@ -6,6 +6,18 @@ let io = require('socket.io')(http);
 
 let usbDetect = require('usb-detection');
 var authenticateController=require('./controllers/authenticate-controller');
+var RegisterController=require('./controllers/Register-controller');
+var editpasswordController=require('./controllers/edit_password-controller');
+var clientdetailsController=require('./controllers/client_details-controller');
+var techniciandetailsController=require('./controllers/technicians_details-controller');
+
+var sitedetailsController=require('./controllers/site_details-controller');
+var testsuitesController=require('./controllers/testsuites-controller');
+
+var deviceimagesController=require('./controllers/device_images-controller');
+
+var previousReportsController=require('./controllers/previous_report-controller');
+
 
 var fs = require('fs');
 var adb = require('adbkit');
@@ -91,6 +103,38 @@ app.get('/installApk', (req, res) => {
 	  })
 })
 
+app.post('/api/authenticate', authenticateController.authenticate);
+
+app.post('/api/authenticate123', authenticateController.authenticate123);
+
+app.get('/api/authenticate1234', RegisterController.authenticate1234);
+
+app.post('/api/editpassword', editpasswordController.editpassword);
+
+app.get('/api/client_details', clientdetailsController.client_details);
+
+app.get('/api/technician_details', techniciandetailsController.technician_details);
+
+app.get('/api/site_details', sitedetailsController.site_details);
+
+app.post('/api/site_register', sitedetailsController.site_register);
+
+app.post('/api/client_register', clientdetailsController.client_register);
+
+app.post('/api/technician_register', techniciandetailsController.technician_register);
+
+app.post('/api/edit_client', clientdetailsController.edit_client);
+app.post('/api/edit_site', sitedetailsController.edit_site);
+
+app.post('/api/edit_technician', techniciandetailsController.edit_technician);
+
+app.post('/api/testsuites_register', testsuitesController.testsuites_register);
+
+app.post('/api/testsuites_details', testsuitesController.testsuites_details);
+
+app.get('/api/device_images_details', deviceimagesController.device_images_details);
+
+app.post('/api/previous_reports', previousReportsController.previous_reports);
 
 
 

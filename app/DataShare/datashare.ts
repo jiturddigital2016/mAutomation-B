@@ -19,41 +19,42 @@ export class DataShare{
 
 
 
-public login_API: string ='http://aryvartdev.com/clara_phonetool/index.php/api/Admin/login';
+public login_API: string ='http://localhost:3000/api/authenticate';
 
-public Changepassword_API:string ='http://aryvartdev.com/clara_phonetool/api/Technician/changepassword';
+public Changepassword_API:string ='http://localhost:3000/api/editpassword';
 
 public Previous_Report_API: string ='http://aryvartdev.com/clara_phonetool/api/Report/reports'
 
 
-public Display_Clientdetails_API: string ='http://aryvartdev.com/clara_phonetool/api/Client/clients';
+public Display_Clientdetails_API: string ='http://localhost:3000/api/client_details';
 
-public Display_Techniciandetails_API: string ='http://aryvartdev.com/clara_phonetool/api/Technician/technicians';
+public Display_Techniciandetails_API: string ='http://localhost:3000/api/technician_details';
 
-public Display_Sitesdetails_API: string ='http://aryvartdev.com/clara_phonetool/api/Site/sites';
-
-
-public Client_Register_API: string ='http://aryvartdev.com/clara_phonetool/api/Client/register';
+public Display_Sitesdetails_API: string ='http://localhost:3000/api/site_details';
 
 
-public Technician_Register_API: string ='http://aryvartdev.com/clara_phonetool/api/Technician/register';
-
-public Sites_Register_API: string ='http://aryvartdev.com/clara_phonetool/api/Site/register';
-
-public Test_Suites_API: string ='http://aryvartdev.com/clara_phonetool/api/Test/testdevice';
+public Client_Register_API: string ='http://localhost:3000/api/client_register';
 
 
-public Client_Edit_API: string ='http://aryvartdev.com/clara_phonetool/api/Client/editclient';
+public Technician_Register_API: string ='http://localhost:3000/api/technician_register';
+
+public Sites_Register_API: string ='http://localhost:3000/api/site_register';
+
+public Test_Suites_API: string ='http://localhost:3000/api/testsuites_register';
+
+
+public Client_Edit_API: string ='http://localhost:3000/api/edit_client';
 
 
 
-public Site_Edit_API: string ='http://aryvartdev.com/clara_phonetool/api/Site/editsite';
+public Site_Edit_API: string ='http://localhost:3000/api/edit_site';
 
-public Technician_Edit_API: string ='http://aryvartdev.com/clara_phonetool/api/Technician/edittechnician';
+public Technician_Edit_API: string ='http://localhost:3000/api/edit_technician';
 
 
-public Display_Testsuites_API: string ='http://aryvartdev.com/clara_phonetool/api/Test/testsuite';
+public Display_Testsuites_API: string ='http://localhost:3000/api/testsuites_details';
 
+public Display_Deviceimages_API: string='http://localhost:3000/api/device_images_details';
 
     public constructor() { }
  
