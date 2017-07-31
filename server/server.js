@@ -4,7 +4,6 @@ let bodyParser = require('body-parser');
 let http = require('http').Server(app);
 let io = require('socket.io')(http);
 
-let usbDetect = require('usb-detection');
 var authenticateController=require('./controllers/authenticate-controller');
 var RegisterController=require('./controllers/Register-controller');
 var editpasswordController=require('./controllers/edit_password-controller');
@@ -35,28 +34,36 @@ app.use(bodyParser.json());
 var apk = 'Clara3scr.apk';
 app.get('/devicesList', (req, res) => {
 	
-	client.listDevices().then(function(devices) { 
-		console.log(devices);
-		res.json(devices);
-	})
+	var devicesDetailArr = [];
 
-
- // client.listDevices()
- //      .then(function(devices) {
- //        return Promise.map(devices, function() {
- //          console.log(devices)
- //          return devices;
- //        })
- //      })
- //      .then(function(id) {
- //        if((JSON.stringify(id)) == '[]')
- //        {
- //            console.log("Please enable Usb Debugging option from your Android device");
- //        }
- //      })
- //      .catch(function(err) {
- //        console.error('Something went wrong:', err.stack)
- //      });
+	client.listDevices()
+	  .then(function(devices) {
+	    return Promise.filter(devices, function(device) {
+	      return client.getProperties(device.id)
+	        .then(function(features) {
+	          let deviceDetail = {};
+	          
+	          deviceDetail["model"] = features["ro.product.model"];
+	          deviceDetail["manufacturer"] = features["ro.product.manufacturer"];
+	          deviceDetail["serialNo"] = features["ro.boot.serialno"];
+	          deviceDetail["model"] = features["ro.product.model"];
+	          if( features["gsm.ril.imei1"] != null ) {
+	            deviceDetail["imei"] = features["gsm.ril.imei1"];  
+	          }
+	          
+	          deviceDetail["osName"] = features["ro.com.google.clientidbase.yt"];
+	          deviceDetail["version"] = features["ro.com.google.gmsversion"];
+	          devicesDetailArr.push(deviceDetail);
+	          
+	        })
+	    })
+	  })
+	  .then(function() {
+	    res.json(devicesDetailArr);
+	  })
+	  .catch(function(err) {
+	    console.error('Something went wrong:', err.stack)
+	  })
 
 
 });
@@ -66,15 +73,40 @@ app.get('/devicesList', (req, res) => {
 // socket program to add / remove devices
 io.on('connection', (socket) => {
   console.log('Connected');
-  usbDetect.on('add', (device) => {
-    console.log('addDevice'+device);
-    io.emit('addDevice', device);   
-  });
 
-  usbDetect.on('remove', (device) => {
-    console.log('Removed'+device);
-    io.emit('removeDevice', device);   
-  });
+  client.trackDevices()
+  .then(function(tracker) {
+    tracker.on('add', function(device) {
+       return client.getProperties(device.id)
+	        .then(function(features) {
+	          let deviceDetail = {};
+	          
+	          deviceDetail["model"] = features["ro.product.model"];
+	          deviceDetail["manufacturer"] = features["ro.product.manufacturer"];
+	          deviceDetail["serialNo"] = features["ro.boot.serialno"];
+	          deviceDetail["model"] = features["ro.product.model"];
+	          if( features["gsm.ril.imei1"] != null ) {
+	            deviceDetail["imei"] = features["gsm.ril.imei1"];  
+	          }
+	          
+	          deviceDetail["osName"] = features["ro.com.google.clientidbase.yt"];
+	          deviceDetail["version"] = features["ro.com.google.gmsversion"];
+	     
+	  		  io.emit('addDevice', deviceDetail);         
+	        })
+        
+    })
+
+     tracker.on('remove', function(device) {
+      io.emit('removeDevice', device.id);         
+    })
+
+
+  })
+  .catch(function(err) {
+    console.error('Something went wrong:', err.stack)
+  })
+
 
   socket.on('disconnect', function(){
     console.log('Disconnected');
