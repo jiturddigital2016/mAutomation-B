@@ -47,13 +47,28 @@ app.get('/devicesList', (req, res) => {
 	          deviceDetail["manufacturer"] = features["ro.product.manufacturer"];
 	          deviceDetail["serialNo"] = features["ro.boot.serialno"];
 	          deviceDetail["model"] = features["ro.product.model"];
-	          if( features["gsm.ril.imei1"] != null ) {
-	            deviceDetail["imei"] = features["gsm.ril.imei1"];  
-	          }
 	          
 	          deviceDetail["osName"] = features["ro.com.google.clientidbase.yt"];
 	          deviceDetail["version"] = features["ro.com.google.gmsversion"];
-	          devicesDetailArr.push(deviceDetail);
+
+	          client.shell(device.id, "dumpsys iphonesubinfo", function(err, output) {
+			      if (err) {
+			          console.log(err);
+			        }
+			        var readStream = output;
+			        readStream
+			          .on('data',  function (data) { 
+			            var subscriberInfo = data.toString();
+			            var arr = subscriberInfo.split(' ');
+			            var lastIndex = arr.length - 1;
+			    		deviceDetail["imei"] = arr[lastIndex];      
+			          })
+			          .on('error', function (err)  { console.error('Error', err); })
+			          .on('end',   function ()     { console.log('All done!'); devicesDetailArr.push(deviceDetail); });
+			      
+			    })
+
+	          
 	          
 	        })
 	    })
@@ -77,7 +92,11 @@ io.on('connection', (socket) => {
   client.trackDevices()
   .then(function(tracker) {
     tracker.on('add', function(device) {
-       return client.getProperties(device.id)
+    	return client.waitForDevice(device.id,  function(err) {
+    		if (err) {
+			          console.log("Device wait err--"+err);
+			        }
+       	return client.getProperties(device.id)
 	        .then(function(features) {
 	          let deviceDetail = {};
 	          
@@ -85,16 +104,29 @@ io.on('connection', (socket) => {
 	          deviceDetail["manufacturer"] = features["ro.product.manufacturer"];
 	          deviceDetail["serialNo"] = features["ro.boot.serialno"];
 	          deviceDetail["model"] = features["ro.product.model"];
-	          if( features["gsm.ril.imei1"] != null ) {
-	            deviceDetail["imei"] = features["gsm.ril.imei1"];  
-	          }
 	          
 	          deviceDetail["osName"] = features["ro.com.google.clientidbase.yt"];
 	          deviceDetail["version"] = features["ro.com.google.gmsversion"];
-	     
-	  		  io.emit('addDevice', deviceDetail);         
+	     		
+	          client.shell(device.id, "dumpsys iphonesubinfo", function(err, output) {
+			      if (err) {
+			          console.log(err);
+			        }
+			        var readStream = output;
+			        readStream
+			          .on('data',  function (data) { 
+			            var subscriberInfo = data.toString();
+			            var arr = subscriberInfo.split(' ');
+			            var lastIndex = arr.length - 1;
+			    		deviceDetail["imei"] = arr[lastIndex];      
+			          })
+			          .on('error', function (err)  { console.error('Error', err); })
+			          .on('end',   function ()     { console.log('All done!');  io.emit('addDevice', deviceDetail);           });
+			 
+			      
+			    })
 	        })
-        
+        })
     })
 
      tracker.on('remove', function(device) {
