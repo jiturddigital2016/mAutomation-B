@@ -61,6 +61,13 @@ var headers = new Headers();
 
   }
 
+Uploadimages(formData:FormData,url:string)  
+  {     
+     return this.http.post(url,formData)  
+            .map((response: Response) => {  
+              return response;                 
+            }).catch(this.handleError);             
+  }  
 
   private handleError(err) {
     let errMessage: string;

@@ -1,4 +1,4 @@
-<!-- <nav>
+<nav>
 <dashboard-data></dashboard-data>
 </nav>
  
@@ -19,9 +19,11 @@
 <md-tab-group>
   
 
- <md-tab  *ngFor="let tab of tabs; let i = index"  (click)="clickMe()" >
+ <md-tab  *ngFor="let tab of tabs" label={{tab.name}} (click)="clickMe()" >
+
+ 
    <div class="tab-max-height">
-   <template md-tab-label>{{tab.name}}</template>
+   
     <div *ngIf="tab.name=='TEST SUITES'" class="tab-cont-box">
 	<md-list *ngFor="let suits of Testsuits">
   <md-list-item (click)="Edit_Testsuites_Details()">{{suits.name}}</md-list-item>
@@ -34,17 +36,24 @@
 <a md-fab (click)="SuiteDialog()"><md-icon>add</md-icon></a>
  </div>
 
+</div>
+	
 
-	</div>
+
+
+
+ 
+
+
+
+
+
 
 
 <div *ngIf="tab.name=='DEVICE IMAGES'" class="tab-cont-box">
-	<md-list *ngFor="let deviceimages of deviceimages_List">
-	<div class="tab-max-height">
-	    <div class="tab-cont-box">
-	  <md-list-item class="mat-list-item" (click)="DeviceimageDialog()" >
+	<md-list-item *ngFor="let deviceimages of deviceimages_List" class="mat-list-item" >
 	  <div class="setting-tabs-list">
-	  <a md-line > 
+	  <a md-line  (click)="Edit_device_images_Details($event, deviceimages)"> 
 	 {{deviceimages.device_name}}
 	 <span class="setting-list-subtitle">{{deviceimages.os_version}}</span>
 	 </a>
@@ -53,9 +62,9 @@
 	
 	  
 	
-	 </div>
-	 </div>
-	</md-list>
+	
+	 
+	
 	 
 	  <div class="setting-popup-but">
 
@@ -99,8 +108,8 @@
     <md-list-item class="mat-list-item setting-icon-text-list" role="listitem" *ngFor="let technician of Technician">
     <a md-line (click)="Edit_Technican_Details($event, technician)" > <button md-icon-button>
         <md-icon>account_circle</md-icon>
-      </button>{{technician.username}}
-	 <span class="material-list-subtitle text-dec-none">{{technician.roles}}</span>
+      </button>{{technician.fullname}}
+	 <span class="material-list-subtitle text-dec-none">{{technician.username}}</span>
 	 </a>
   
   </md-list-item>
@@ -197,9 +206,10 @@
 
 
 
-</md-tab-group> -->
+</md-tab-group>
 
-<nav>
+
+<!-- <nav>
 <dashboard-data></dashboard-data>
 </nav>
  
@@ -242,7 +252,7 @@
 	    <div class="tab-cont-box">
 	  <md-list-item *ngFor="let deviceimages of deviceimages_List" class="mat-list-item" >
 	  <div class="setting-tabs-list">
-	  <a md-line > 
+	  <a md-line  (click)="Edit_device_images_Details($event, deviceimages)"> 
 	 {{deviceimages.device_name}}
 	 <span class="setting-list-subtitle">{{deviceimages.os_version}}</span>
 	 </a>
@@ -388,4 +398,4 @@
  </div>
   
     </div>
- 
+  -->

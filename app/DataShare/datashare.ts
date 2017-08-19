@@ -14,6 +14,9 @@ export class DataShare{
  public edit_tecnician:string;
  public Edit_technician_Detials: any;
 
+ public edit_deviceimage:string;
+ public Edit_deviceimage_Detials: any;
+
  public edit_testsuites:boolean;
  public Edit_TestSuites_Detials: any;
 
@@ -55,6 +58,10 @@ public Technician_Edit_API: string ='http://localhost:3000/api/edit_technician';
 public Display_Testsuites_API: string ='http://localhost:3000/api/testsuites_details';
 
 public Display_Deviceimages_API: string='http://localhost:3000/api/device_images_details';
+public Register_Deviceimages_API: string='http://localhost:3000/api/device_images_register';
+
+public Edit_Deviceimages_API: string='http://localhost:3000/api/device_images_edit';
+
 
     public constructor() { }
  

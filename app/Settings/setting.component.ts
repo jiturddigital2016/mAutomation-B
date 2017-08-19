@@ -168,8 +168,8 @@ let body = data1.toString();
 console.log(body);
   this.webservice.getuser(body, this.datashare.Display_Testsuites_API).subscribe(data =>{
 
- 
- console.log(data.json());
+ console.log("####################"+data.json());
+ console.log("####################"+data.json().status);
 this.datashare.edit_testsuites=data.json().status;
 this.datashare.Edit_TestSuites_Detials=data.json().testsuitedata;
 
@@ -395,8 +395,42 @@ dialogRef.afterClosed().subscribe(result => {
 
   }
 
+
+Edit_device_images_Details($event, deviceimages)
+{
+
+
+this.datashare.edit_deviceimage="Edit"
+this.datashare.Edit_deviceimage_Detials=deviceimages;
+
+
+
+   let dialogRef =  this.dialog.open(DevicesImagesComponent);
+dialogRef.afterClosed().subscribe(result => {
+
+ this.Deviceimages_webservice_call();
+
+ });
+
+
+}
+
+
+
+
+
 DeviceimageDialog() {
-    this.dialog.open(DevicesImagesComponent);
+
+this.datashare.edit_deviceimage="Add"
+
+  let dialogRef =  this.dialog.open(DevicesImagesComponent);
+dialogRef.afterClosed().subscribe(result => {
+
+ this.Deviceimages_webservice_call();
+
+ });
+
+
   }
 
 
@@ -1151,9 +1185,9 @@ MT_Carrier_Lock:boolean;
 ngOnInit() 
 {
   
+console.log("&&&&&&&&&&&"+this.datashare.Edit_TestSuites_Detials.length);
 
-
-if(this.datashare.edit_testsuites)
+if(this.datashare.Edit_TestSuites_Detials.length >0)
 {
 if(this.datashare.Edit_TestSuites_Detials[0].only_manual == 1)
 {
@@ -2253,7 +2287,12 @@ data1.append('automated_tests',this.data_all_automated_tests);
   data1.append('test_names',this.testcases);
 data1.append('suite_enabled',this.data_suite_enabled);
 
-data1.append('test_device_id',this.datashare.Edit_TestSuites_Detials[0].test_device_id);
+if(this.datashare.Edit_TestSuites_Detials.length>0)
+{
+  data1.append('test_device_id',this.datashare.Edit_TestSuites_Detials[0].test_device_id);
+}
+
+
  
 
 
@@ -2333,8 +2372,147 @@ alert("error getting")
 
 
 export class DevicesImagesComponent {
-  constructor(public dialogRef: MdDialogRef<DevicesImagesComponent>) {}
+
+device_name:string;
+os_type:string;
+os_version:string;
+image_name:string;
+image_enabled:boolean;
+image_enabled_data:string;
+url:string;
+file_name:string;
+file:File;
+  constructor(public dialogRef: MdDialogRef<DevicesImagesComponent>,private webservice: WebServiceComponent,private datashare:DataShare) {
+
+console.log(this.datashare.edit_deviceimage);
+
+if(this.datashare.edit_deviceimage=="Edit")
+{
+  this.device_name=this.datashare.Edit_deviceimage_Detials.device_name;
+  this.os_type=this.datashare.Edit_deviceimage_Detials.os_type;
+this.os_version=this.datashare.Edit_deviceimage_Detials.os_version;
+this.image_name=this.datashare.Edit_deviceimage_Detials.image_name;
+
+if(this.datashare.Edit_deviceimage_Detials.image_enabled == "1")
+{
+  this.image_enabled=true;
 }
+else
+{
+  this.image_enabled=false;
+}
+
+
+}
+else
+{
+/*
+this.device_name="";
+this.os_type="";
+this.os_version="";
+this.image_name="";
+ this.image_enabled=false;
+  */
+}
+
+
+  }
+
+
+
+fileChange(event) {
+    let fileList: FileList = event.target.files;
+    if(fileList.length > 0) {
+        this.file = fileList[0];
+        
+        console.log(this.file.name);
+this.image_name=this.file.name;
+
+
+    }
+console.log(this.file.name);
+console.log(this.file);
+}
+
+
+
+
+
+
+
+adddeviceimages()
+{
+  
+if(this.image_enabled)
+{
+  this.image_enabled_data ="1";
+
+}
+else
+{
+  this.image_enabled_data ="0";
+}
+
+
+
+let formData:FormData = new FormData();  
+     
+
+formData.append('device_name',this.device_name);
+  formData.append('os_type',this.os_type);
+  formData.append('os_version',this.os_version);
+  formData.append('image_enabled',this.image_enabled_data);
+
+
+   formData.append('image_name',this.file);
+console.log(this.datashare.logindetails[0].user_type);
+console.log(this.datashare.logindetails[0].admin_id);
+
+if(this.datashare.logindetails[0].user_type =="admin")
+  {
+
+  formData.append('admin_id',this.datashare.logindetails[0].admin_id);
+
+  }
+  else
+  {
+ formData.append('technician_id',this.datashare.logindetails[0].technician_id);
+  }
+if(this.datashare.edit_deviceimage=="Edit")
+{
+  formData.append('device_image_id',this.datashare.Edit_deviceimage_Detials.device_image_id);
+  
+this.url=this.datashare.Edit_Deviceimages_API;
+}
+else
+{
+  
+this.url=this.datashare.Register_Deviceimages_API;
+}
+
+this.webservice.Uploadimages(formData, this.url).subscribe(data =>{
+
+
+  alert(data.json().message)
+ 
+ console.log(data.json());
+
+
+  err =>
+  {
+alert("error getting")
+
+  }
+
+});
+
+}
+
+}
+
+
+
+
 
 
 

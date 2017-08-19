@@ -4,6 +4,12 @@ let bodyParser = require('body-parser');
 let http = require('http').Server(app);
 let io = require('socket.io')(http);
 
+var express = require('express'), path = require('path'),
+	busboy = require("then-busboy"),
+	fileUpload = require('express-fileupload');
+	
+
+
 var authenticateController=require('./controllers/authenticate-controller');
 var RegisterController=require('./controllers/Register-controller');
 var editpasswordController=require('./controllers/edit_password-controller');
@@ -29,6 +35,10 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use(bodyParser.json());
+
+app.use(express.static(path.join(__dirname, './public')));
+app.use(fileUpload());
+
 
 
 var apk = 'Clara3scr.apk';
@@ -199,6 +209,8 @@ app.post('/api/testsuites_details', testsuitesController.testsuites_details);
 app.get('/api/device_images_details', deviceimagesController.device_images_details);
 
 app.post('/api/previous_reports', previousReportsController.previous_reports);
+app.post('/api/device_images_register', deviceimagesController.device_images_register);
+app.post('/api/device_images_edit', deviceimagesController.device_images_edit);
 
 
 
